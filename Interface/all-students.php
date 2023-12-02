@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include "../Connection/connect.php";
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -240,8 +244,6 @@
             Sidebar end
         ***********************************-->
 
-		
-		
         <!--**********************************
             Content body start
         ***********************************-->
@@ -292,7 +294,38 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td><strong>01</strong></td>
+												<?php
+
+												$sql ="SELECT * FROM users";
+                                                $result = $conn->query($sql);
+
+                                                if(!$result){
+		                                            die("Invalid query:". $conn->error);
+	                                            }
+	                                                while($row = $result->fetch_assoc()):
+	                                            
+                                                    ?>
+                                                <tr>  
+			                                        <td><?php echo $row["user_id"] ?></td>
+			                                        <td><?php echo $row["user_name"] ?></td>
+			                                        <td><?php echo $row["user_email"] ?></td>
+                                                    <td><?php echo $row["user_password"] ?></td>
+                                                    <td><?php echo $row["user_role"] ?></td>
+			                                    <td>
+                                                <a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+												<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+												</td>
+                                                </tr>
+                                                <?php
+	                                            endwhile
+                                                    ?>
+
+
+
+
+
+						
+														<!-- <td><strong>01</strong></td>
 														<td>Tiger Nixon</td>
 														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
 														<td>Hello00</td>
@@ -345,7 +378,7 @@
 															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
 															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 														</td>												
-													</tr>
+													</tr> -->
 												</tbody>
 											</table>
 										</div>
@@ -403,3 +436,7 @@
 	
 </body>
 </html>
+<?php
+$conn->close()
+
+?>
