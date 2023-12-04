@@ -15,11 +15,12 @@ if (isset($_POST["logging_submit"])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        if ($row['user_role'] = 1 ){
-            header('Location: ../index.html');
-        }else{
-            header('Location: ../index-2.html');
-        }
+        $row = $result->fetch_assoc();
+        session_start();
+        $_SESSION['user_name']= $row['user_name'];
+        $_SESSION['user_role']= $row['user_role'];
+        $_SESSION['user_id']= $row['user_id'];
+        header('Location: Check.php'); 
         exit();
     } else {
         header('Location: ../page-login.html');
