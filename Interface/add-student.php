@@ -1,4 +1,26 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include "../Connection/connect.php";
+
+if (isset($_POST['submit'])) {
+    $Nom = $_POST['nom'];  
+    $Email = $_POST['Email'];  
+    $Password = $_POST['Password'];  
+    $Role = $_POST['Role'];
+    
+
+    $sqlADD = "INSERT INTO `users`(`user_name`, `user_email`, `user_password`,`user_role`) VALUES ('$Nom', '$Email', '$Password', '$Role')";
+    $ResultADD = mysqli_query($conn, $sqlADD);
+
+    if ($ResultADD) {
+        header("Location:all-students.php?msg=L'utilisateur a été ajouter avec succès");
+        exit;
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
+}
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -188,7 +210,7 @@
                                 <span class="nav-text">Students</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="all-students.html">All Students</a></li>
+                                <li><a href="all-students.php">All Students</a></li>
                             </ul>
                         </li>
                 <!-- <li>
@@ -284,33 +306,33 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label"> Name</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="nom" >
 											</div>
 										</div>
 										
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Email</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="Email">
 											</div>
 										</div>
 
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Password</label>
-												<input type="password" class="form-control">
+												<input type="password" class="form-control" name="Password">
                                             
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Role</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="Role">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
+											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+											²
 										</div>
 									</div>
 								</form>
@@ -376,3 +398,7 @@
 	
 </body>
 </html>
+<?php
+$conn->close()
+
+?>

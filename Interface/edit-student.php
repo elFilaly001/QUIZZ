@@ -1,4 +1,28 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include "../Connection/connect.php";
+
+
+$id=$_GET["user_id"];
+$query="SELECT * FROM `users` where user_id = $id ";
+$var = mysqli_query($conn,$query);
+$array= mysqli_fetch_assoc($var);
+
+ if(isset($_POST['submit']))
+ {
+ $n=$_POST['nom'];
+ $e=$_POST['email'];
+ $p=$_POST['password'];
+ $r=$_POST['role'];
+
+
+ $query2="UPDATE `users` SET `user_name`='$n', `user_email`='$e' , `user_password`='$p', `user_role`='$r'    WHERE  user_id = $id ";
+$var = mysqli_query($conn,$query2);
+ if (isset($var)) {
+     header("Location:all-students.php");
+ }
+ }
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -188,7 +212,7 @@
                                 <span class="nav-text">Students</span>
                             </a>
                             <ul aria-expanded="false">
-                                <li><a href="all-students.html">All Students</a></li>
+                                <li><a href="all-students.php">All Students</a></li>
                             </ul>
                         </li>
                 <!-- <li>
@@ -284,33 +308,33 @@
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label"> Name</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="nom" value ="<?php echo $array["user_name"] ?>" >
 											</div>
 										</div>
 										
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Email</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="email" value= "<?php echo $array["user_email"] ?>">
 											</div>
 										</div>
 
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Password</label>
-												<input type="password" class="form-control">
+												<input type="password" class="form-control" name="password" value= "<?php echo $array["user_password"] ?>">
                                             
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Role</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="role" value= "<?php echo $array["user_role"] ?>">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
+											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
+											
 										</div>
 									</div>
 								</form>
@@ -376,3 +400,7 @@
 	
 </body>
 </html>
+<?php
+$conn->close()
+
+?>

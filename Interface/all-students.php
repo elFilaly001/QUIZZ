@@ -1,5 +1,19 @@
 ﻿<?php
 include "../Connection/connect.php";
+
+if (isset($_GET['user_id'])) {
+
+    $id = $_GET['user_id'];
+    $Delete = "DELETE FROM users WHERE user_id = $id";
+    $result1 = mysqli_query($conn, $Delete);
+
+    if ($result1) {
+        header("Location: all-student.php?msg=L'utilisateur a été supprimé");
+        exit(); 
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -190,7 +204,7 @@ include "../Connection/connect.php";
 								<span class="nav-text">Students</span>
 							</a>
 							<ul aria-expanded="false">
-								<li><a href="all-students.html">All Students</a></li>
+								<li><a href="all-students.php">All Students</a></li>
 							</ul>
 						</li>
 				<li>
@@ -278,7 +292,7 @@ include "../Connection/connect.php";
 								<div class="card">
 									<div class="card-header">
 										<h4 class="card-title">All Students List  </h4>
-										<a href="add-student.html" class="btn btn-primary">+ Add new</a>
+										<a href="add-student.php" class="btn btn-primary">+ Add new</a>
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
@@ -312,8 +326,8 @@ include "../Connection/connect.php";
                                                     <td><?php echo $row["user_password"] ?></td>
                                                     <td><?php echo $row["user_role"] ?></td>
 			                                    <td>
-                                                <a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-												<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                <a href="edit-student.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+												<a href="edit-student.php" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 												</td>
                                                 </tr>
                                                 <?php
@@ -321,64 +335,6 @@ include "../Connection/connect.php";
                                                     ?>
 
 
-
-
-
-						
-														<!-- <td><strong>01</strong></td>
-														<td>Tiger Nixon</td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														<td>Hello00</td>
-														<td>Role</td>
-														<td>
-															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr>
-													<tr>
-														<td><strong>02</strong></td>
-														<td>Ashton Cox</td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														<td>Hello--</td>
-														<td>Role</td>
-														<td>
-															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr>
-													<tr>
-														<td><strong>03</strong></td>
-														<td>Cedric Kelly</td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														<td>Hello++</td>
-														<td>Role</td>
-														<td>
-															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr>
-													<tr>
-														<td><strong>04</strong></td>
-														<td>Airi Satou</td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														<td>Hello///</td>
-														<td>Role</td>
-														<td>
-															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr>
-													<tr>
-														<td><strong>05</strong></td>
-														<td>Brielle Williamson</td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														<td>Helloworld</td>
-														<td>Role</td>
-														<td>
-															<a href="edit-student.html" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr> -->
 												</tbody>
 											</table>
 										</div>
