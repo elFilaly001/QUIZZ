@@ -1,10 +1,10 @@
 <?php include_once '../../Connection/connect.php';
 
-if (isset($_POST['deleteQuiz'])) {
+if (isset($_GET['id'])) {
     $quiz_id = $_GET['id'];
-    $conn->query("DELETE FROM quizz WHERE quizz_id = $quiz_id");
+    $result = $conn->query("DELETE FROM quizz WHERE quizz_id = $quiz_id");
 
-    if ($conn) header('location:../all-quizzes.php');
+    if ($result) header('Location:../ad-quizzes.php');
 }
 
 $conn->close();

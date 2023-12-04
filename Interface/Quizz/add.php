@@ -2,10 +2,9 @@
 
 if (isset($_POST['addQuizz'])) {
     $name = $_POST['quiz_name'];
-    // $id = $_POST['course_id'] or NULL;
-    $conn->query("INSERT INTO quizz VALUES (NULL, '$name', NULL)");
-
-    if ($conn) header('location:../all-quizzes.php');
+    $id = $_POST['course_id'] ;
+    $result = $conn->query("INSERT INTO quizz VALUES (NULL, '$name', '$id')");
+    if ($result) header('location:../add-questions.php');
 }
 
 $conn->close();
