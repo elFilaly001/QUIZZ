@@ -8,7 +8,7 @@ if (isset($_GET['user_id'])) {
     $result1 = mysqli_query($conn, $Delete);
 
     if ($result1) {
-        header("Location: all-student.php?msg=L'utilisateur a été supprimé");
+        header("Location: all-students.php?msg=L'utilisateur a été supprimé");
         exit(); 
     } else {
         echo "Failed: " . mysqli_error($conn);
@@ -327,14 +327,12 @@ if (isset($_GET['user_id'])) {
                                                     <td><?php echo $row["user_role"] ?></td>
 			                                    <td>
                                                 <a href="edit-student.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-												<a href="edit-student.php" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-												</td>
+												<a href="all-students.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
                                                 </tr>
                                                 <?php
 	                                            endwhile
                                                     ?>
-
-
 												</tbody>
 											</table>
 										</div>
