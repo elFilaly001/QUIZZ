@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include '../Connection/connect.php';
+if(isset($_POST['submit'])){
+    $course_title = $_POST['course_title'];
+    $course_description = $_POST['course_description'];
+    $course_duration = $_POST['course_duration'];
+    $course_creation_date = $_POST['course_creation_date'];
+
+    $sql ="INSERT INTO `courses` (course_title , course_description , course_duration , course_creation_date ) 
+    VALUES ('$course_title','$course_description' , '$course_duration', '$course_creation_date')";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        echo "data inserted successfully";
+    }else{
+        die(mysqli_error($conn,$sql));
+    }
+}
+
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -441,71 +461,36 @@
 								<h4 class="card-title">Courses Details</h4>
 							</div>
 							<div class="card-body">
-								<form action="#" method="post">
+								<form action="" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Course Name</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="course_title">
 											</div>
 										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Code</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Course Details</label>
-												<textarea class="form-control" rows="5"></textarea>
+												<textarea class="form-control" rows="5" name="course_description"></textarea>
 											</div>
 										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Start Form</label>
-												<input name="datepicker" class="datepicker-default form-control" id="datepicker">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Course Duration</label>
-												<input type="text" class="form-control">
+												<input type="text" class="form-control" name="course_duration">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Course Price</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Professor Name</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Maximum Students</label>
-												<input type="text" class="form-control">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Contact Number</label>
-												<input type="text" class="form-control">
+												<label class="form-label">Course creation date</label>
+												<input type="text" class="form-control" name="course_creation_date">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group fallback w-100">
-												<label class="form-label d-block">Course Photo</label>
-												<input type="file" class="dropify" data-default-file="">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" class="btn btn-primary">Submit</button>
-											<button type="submit" class="btn btn-light">Cencel</button>
+											<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+											<a href="index.php" class="btn btn-danger"> cancel</a>
 										</div>
 									</div>
 								</form>
@@ -526,7 +511,7 @@
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank"> codersstrike</a> 2023</p>
             </div>
         </div>
         <!--**********************************
