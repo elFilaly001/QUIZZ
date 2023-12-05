@@ -1,4 +1,4 @@
-﻿<?php
+﻿<?php require_once 'Login_logout/Check.php'
 ?>
 
 <!DOCTYPE html>
