@@ -1,4 +1,5 @@
-﻿<?php include_once '../Connection/connect.php';
+
+<?php include_once '../Connection/connect.php';
 
 $result = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
 ?>
@@ -28,6 +29,7 @@ $result = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all
         Preloader start
     ********************-->
     <div id="preloader">
+
       <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
         <div class="sk-child sk-bounce2"></div>
@@ -42,6 +44,7 @@ $result = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all
         Main wrapper start
     ***********************************-->
     <div id="main-wrapper">
+
       <!--**********************************
             Nav header start
         ***********************************-->
@@ -281,6 +284,8 @@ $result = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all
         ***********************************-->
 
       <!--**********************************
+        <!--**********************************
+
             Sidebar start
         ***********************************-->
         <div class="dlabnav">
@@ -531,7 +536,7 @@ $result = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all
             Sidebar end
         ***********************************-->
 
-      <!--**********************************
+        <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">

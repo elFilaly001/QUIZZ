@@ -1,4 +1,5 @@
 ﻿<?php include_once '../Connection/connect.php';
+
 $result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
 $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
 ?>
@@ -258,6 +259,7 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         </div>
       </div>
       <!--**********************************
+
             Sidebar end
         ***********************************-->
 
@@ -307,6 +309,7 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
                                                     <option value=""> </option> 
                                                     <?php for ($i = 0; $i < count($courseTable); $i++) : ?>
                                                     <option value="<?php echo $courseTable[$i][0]?>" <?php if($result[0][2] == $courseTable[$i][0]) echo 'selected'; ?>><?php echo $courseTable[$i][1] ?></option>
+
                                                     <?php endfor ?>
                                                 </select>
 											</div>
