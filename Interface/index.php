@@ -1,4 +1,7 @@
 ﻿<?php
+require_once 'Login_logout/Check.php';
+
+checkUser('index');
 ?>
 
 <!DOCTYPE html>
