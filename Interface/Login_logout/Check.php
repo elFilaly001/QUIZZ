@@ -1,13 +1,13 @@
 <?php
 
-require_once "../../Connection/connect.php";
+require_once "../Connection/connect.php";
 session_start(); 
 if(isset($_SESSION['user_role'])){
     $user_role = $_SESSION['user_role'];
     if ($user_role) {
          header ('Location: ../index.php');
     }else{
-         header ('Location: ../add-courses.html');
+         header ('Location: ../st_courses.php');
     }
 }
 else{
