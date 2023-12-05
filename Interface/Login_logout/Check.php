@@ -7,6 +7,7 @@ if(isset($_SESSION['user_role'])){
     if ($user_role) {
          header ('Location: ../index.php');
     }else{
+
          header ('Location: ../add-courses.html');
     }
 }

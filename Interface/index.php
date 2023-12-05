@@ -263,7 +263,7 @@
       <!--**********************************
             Sidebar start
         ***********************************-->
-      <div class="dlabnav">
+        <div class="dlabnav">
         <div class="dlabnav-scroll">
           <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
@@ -292,6 +292,21 @@
                 <li><a href="add-courses.html">Add Courses</a></li>
                 <li><a href="edit-courses.html">Edit Courses</a></li>
                 <li><a href="about-courses.html">About Courses</a></li>
+              </ul>
+            </li>
+            <li>
+              <a
+                class="has-arrow"
+                href="javascript:void()"
+                aria-expanded="false">
+                <i class="la la-graduation-cap"></i>
+                <span class="nav-text">Quizzes</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="ad-quizzes.php">All Quizzes</a></li>
+                <li><a href="add-quizzes.php">Add Quizzes</a></li>
+                <li><a href="edit-quizzes.php">Edit Quizzes</a></li>
+            
               </ul>
             </li>
             <li>
