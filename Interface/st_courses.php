@@ -1,7 +1,15 @@
-﻿<?php require_once '../Connection/connect.php';
-session_start();
+﻿<?php require_once 'Login_logout/Check.php';
+checkUser('st_courses')
+?>
+<?php require_once '../Connection/connect.php';
+
 $user_id = $_SESSION['user_id'];
-$coursesTable = $conn->query("SELECT * FROM courses");
+$coursesTable = $conn->query('
+    SELECT c.* FROM course_progress cp
+    LEFT JOIN courses c ON c.course_id = cp.course_id
+    LEFT JOIN users u ON u.user_id = cp.user_id
+    WHERE cp.user_id = ' . $user_id . '
+');
 ?>
 
 <!DOCTYPE html>
@@ -179,7 +187,7 @@ $coursesTable = $conn->query("SELECT * FROM courses");
           <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
             <li>
-              <a href="index.html" aria-expanded="false">
+              <a href="index.php" aria-expanded="false">
                 <i class="la la-home"></i>
                 <span class="nav-text">Dashboard</span>
               </a>
