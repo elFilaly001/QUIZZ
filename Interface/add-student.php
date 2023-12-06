@@ -5,10 +5,11 @@ if (isset($_POST['submit'])) {
     $Nom = $_POST['nom'];  
     $Email = $_POST['Email'];  
     $Password = $_POST['Password'];  
-    $Role = $_POST['Role'];
+    // $Role = $_POST['Role'];
     
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlADD = "INSERT INTO `users`(`user_name`, `user_email`, `user_password`,`user_role`) VALUES ('$Nom', '$Email', '$Password', '$Role')";
+    $sqlADD = "INSERT INTO `users`(`user_name`, `user_email`, `user_password`) VALUES ('$Nom', '$Email',  '$hashedPassword')";
     $ResultADD = mysqli_query($conn, $sqlADD);
 
     if ($ResultADD) {
@@ -324,12 +325,12 @@ if (isset($_POST['submit'])) {
                                             
 											</div>
 										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Role</label>
 												<input type="text" class="form-control" name="Role">
 											</div>
-										</div>
+										</div> -->
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
 											²

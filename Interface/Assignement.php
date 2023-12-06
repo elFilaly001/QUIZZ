@@ -1,27 +1,22 @@
 ﻿<?php
 include "../Connection/connect.php";
 
+if (isset($_POST['submit'])) {
+    $cours = $_POST['course_id'];
+    $user = $_POST['user_id']; 
 
-$id=$_GET["user_id"];
-$query="SELECT * FROM `users` where user_id = $id ";
-$var = mysqli_query($conn,$query);
-$array= mysqli_fetch_assoc($var);
+    $sqlADD = "INSERT INTO `course_progress`(`course_id `, `user_id`) VALUE ('$cours','$user')";
+    $ResultADD = mysqli_query($conn, $sqlADD);
 
- if(isset($_POST['submit']))
- {
- $n=$_POST['nom'];
- $e=$_POST['email'];
- $p=$_POST['password'];
-//  $r=$_POST['role'];
-
-
- $query2="UPDATE `users` SET `user_name`='$n', `user_email`='$e' , `user_password`='$p'   WHERE  user_id = $id ";
-$var = mysqli_query($conn,$query2);
- if (isset($var)) {
-     header("Location:all-students.php");
- }
- }
+    if ($ResultADD) {
+        header("Location:Assignement.php?msg=L'utilisateur a été ajouter avec succès");
+        exit;
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -271,9 +266,6 @@ $var = mysqli_query($conn,$query2);
         <!--**********************************
             Sidebar end
         ***********************************-->
-
-		
-		
         <!--**********************************
             Content body start
         ***********************************-->
@@ -284,63 +276,69 @@ $var = mysqli_query($conn,$query2);
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Edit Student</h4>
+                            <h4>Assignement Course</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit-student </a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Assignement</a></li>
                         </ol>
                     </div>
                 </div>
 				
 				<div class="row">
-					<div class="col-xl-12 col-xxl-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-								<h5 class="card-title">Basic Info</h5>
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Assignement:</h4>
 							</div>
 							<div class="card-body">
-                                <form action="#" method="post">
+								<form action="#" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label"> Name</label>
-												<input type="text" class="form-control" name="nom" value ="<?php echo $array["user_name"] ?>" >
+                                              <label class="form-label">Course</label></br>
+												 <select class="form-select" aria-label="Default select example">
+                                                    <?php
+                                                    $query= "SELECT c.course_id, c.course_title FROM courses c";
+                                                    $results= mysqli_query($conn, $query);
+                                                    while($row = $results->fetch_assoc()):
+                                                     ?>
+                                                     <option value="<?php echo $row['course_id']?>" name="course_id"><?php echo $row['course_title']?></option>
+                                                     <?php 
+                                                      endwhile
+                                                     ?>
+                                                  </select>
+                                                  
 											</div>
 										</div>
-										
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Email</label>
-												<input type="text" class="form-control" name="email" value= "<?php echo $array["user_email"] ?>">
+												<label class="form-label">Etudiant</label></br>
+                                                    <select class="form-select" aria-label="Default select example">
+                                                        <?php 
+                                                        $query2= "SELECT user_id, user_name FROM users ";
+                                                        $results2= mysqli_query($conn,$query2);
+                                                        while($row = $results2->fetch_assoc()):
+                                                            ?>
+                                                            <option value="<?php echo $row['user_id']?>" name="course_id"><?php echo $row['user_name']?></option>
+                                                            <?php
+                                                            endwhile
+                                                            ?>
+                                                    
+                                                  </select>
 											</div>
 										</div>
-
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Password</label>
-												<input type="password" class="form-control" name="password" value= "<?php echo $array["user_password"] ?>">
-                                            
-											</div>
-										</div>
-										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Role</label>
-												<input type="text" class="form-control" name="role" value= "<?php echo $array["user_role"] ?>">
-											</div>
-										</div> -->
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-											
+											<button type="submit" name="submit" class="btn btn-primary">Assigner</button>
 										</div>
 									</div>
 								</form>
-                            </div>
-                        </div>
-                    </div>
+							</div>
+						</div>
+					</div>
 				</div>
 				
             </div>
@@ -400,7 +398,3 @@ $var = mysqli_query($conn,$query2);
 	
 </body>
 </html>
-<?php
-$conn->close()
-
-?>
