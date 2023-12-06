@@ -195,7 +195,7 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <?php require_once 'sidebar' ?>
+        <?php require_once 'sidebar/sidebar.php' ?>
         <!--**********************************
             Sidebar end
         ***********************************-->
