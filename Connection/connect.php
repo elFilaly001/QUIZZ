@@ -1,15 +1,13 @@
 <?php
-    $DBname='sql8666133';
-    $Servername='sql8.freesqldatabase.com';
-    $Username='sql8666133';
-    $password='zYYrk7Juds';
+$DBname = 'test';
+$Servername = 'localhost';
+$Username = 'root';
+$password = '';
 
-    $conn= new mysqli($Servername,$Username,$password,$DBname);
+$conn = new mysqli($Servername, $Username, $password, $DBname);
 
-    if(!$conn){
-        die("Connection failed: " . mysqli_connect_error());
-    }else{
-        echo "connected ";
-    }
-     
-?>
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+} else {
+    echo "connected ";
+}
