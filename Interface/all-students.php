@@ -310,6 +310,17 @@ if (isset($_GET['user_id'])) {
 													<tr>
 												<?php
 
+
+
+
+                                                    
+<?php
+$servername = "localhost:3306";
+$username = "root";
+$password = "";
+$dbname = "sqli";
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+?>
 												$sql ="SELECT * FROM users";
                                                 $result = $conn->query($sql);
 

@@ -2,14 +2,14 @@
 include "../Connection/connect.php";
 
 if (isset($_POST['submit'])) {
-    $cours = $_POST['course_id'];
+    $cours = $_POST['course_id'];  
     $user = $_POST['user_id']; 
 
-    $sqlADD = "INSERT INTO `course_progress`(`course_id `, `user_id`) VALUE ('$cours','$user')";
+    $sqlADD = "INSERT INTO course_progress (course_id , user_id) VALUE ($cours, $user)";
     $ResultADD = mysqli_query($conn, $sqlADD);
 
     if ($ResultADD) {
-        header("Location:Assignement.php?msg=L'utilisateur a été ajouter avec succès");
+        header("Location:Assignement.php?");
         exit;
     } else {
         echo "Failed: " . mysqli_error($conn);
@@ -17,9 +17,10 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
-
+    
 <head>
 	
 	<meta charset="utf-8">
@@ -295,39 +296,39 @@ if (isset($_POST['submit'])) {
 								<h4 class="card-title">Assignement:</h4>
 							</div>
 							<div class="card-body">
-								<form action="#" method="post">
+								<form action="" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
                                               <label class="form-label">Course</label></br>
-												 <select class="form-select" aria-label="Default select example">
+												 <select class="form-select"  name="course_id"  aria-label="Default select example">
                                                     <?php
-                                                    $query= "SELECT c.course_id, c.course_title FROM courses c";
+                                                     $query= "SELECT c.course_id , c.course_title FROM courses c";
                                                     $results= mysqli_query($conn, $query);
                                                     while($row = $results->fetch_assoc()):
                                                      ?>
-                                                     <option value="<?php echo $row['course_id']?>" name="course_id"><?php echo $row['course_title']?></option>
+                                                     <option value="<?php echo $row['course_id']?>" ><?php echo $row['course_title']?></option>
                                                      <?php 
                                                       endwhile
                                                      ?>
                                                   </select>
-                                                  
-											</div>
-										</div>
+                                                  </div>
+                                           
+                                        </div> 
+                                        
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Etudiant</label></br>
-                                                    <select class="form-select" aria-label="Default select example">
+                                                    <select class="form-select" name="user_id"  aria-label="Default select example">
                                                         <?php 
                                                         $query2= "SELECT user_id, user_name FROM users ";
                                                         $results2= mysqli_query($conn,$query2);
                                                         while($row = $results2->fetch_assoc()):
                                                             ?>
-                                                            <option value="<?php echo $row['user_id']?>" name="course_id"><?php echo $row['user_name']?></option>
+                                                            <option value= "<?php echo $row['user_id']?>"><?php echo $row['user_name']?></option>
                                                             <?php
                                                             endwhile
                                                             ?>
-                                                    
                                                   </select>
 											</div>
 										</div>
