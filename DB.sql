@@ -7,6 +7,14 @@ Create table users (
     user_password varchar(255);
     user_role boolean 
 )
+users (user_id,user_name,user_email,user_password,user_role)
+courses (course_id, coure_title, course_description)
+course_progress (progress_index, #course_id, #user_id)
+quizz (quizz_id, quizz_title, #course_id)
+quizz_progress (quizz_progress, quizz_score, quizz_correct_answers, quizz_date, #quizz_id)
+question (question_id, question_content, #quizz_id)
+answers (answer_id, answer_content, answer_is_correct, #question_id)
+answer(answer_id,)
 
 Create table courses (
     course_id int auto_increment Primary key , 
