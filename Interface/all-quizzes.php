@@ -1,4 +1,5 @@
 ﻿<?php include_once '../Connection/connect.php';
+
 $result = $conn->query("SELECT * FROM quizz")->fetch_all();
 ?>
 

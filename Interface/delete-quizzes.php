@@ -1,4 +1,5 @@
 ﻿<?php include_once '../Connection/connect.php';
+
 $result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
 $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
 ?>
