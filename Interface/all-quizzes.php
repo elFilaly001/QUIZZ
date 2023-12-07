@@ -1,19 +1,30 @@
-﻿<!DOCTYPE html>
+﻿<?php include_once '../Connection/connect.php';
+
+$result = $conn->query("SELECT * FROM quizz")->fetch_all();
+?>
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Edumin - Bootstrap Admin Dashboard</title>
+    <title>Edumin - Quizzes</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
     <link
       rel="stylesheet"
-      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" />
+      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
+    />
+    <!-- Datatable -->
+    <link
+      href="vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body data-headerbg="color_2" data-theme-version="dark">
+  <body>
     <!--*******************
         Preloader start
     ********************-->
@@ -64,7 +75,8 @@
                 <div class="search_bar dropdown">
                   <span
                     class="search_icon p-3 c-pointer"
-                    data-toggle="dropdown">
+                    data-toggle="dropdown"
+                  >
                     <i class="mdi mdi-magnify"></i>
                   </span>
                   <div class="dropdown-menu p-0 m-0">
@@ -73,7 +85,8 @@
                         class="form-control"
                         type="search"
                         placeholder="Search"
-                        aria-label="Search" />
+                        aria-label="Search"
+                      />
                     </form>
                   </div>
                 </div>
@@ -85,7 +98,8 @@
                     class="nav-link bell ai-icon"
                     href="#"
                     role="button"
-                    data-toggle="dropdown">
+                    data-toggle="dropdown"
+                  >
                     <svg
                       id="icon-user"
                       xmlns="http://www.w3.org/2000/svg"
@@ -97,9 +111,11 @@
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-bell">
+                      class="feather feather-bell"
+                    >
                       <path
-                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
+                      ></path>
                       <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
                     <div class="pulse-css"></div>
@@ -181,11 +197,13 @@
                     class="nav-link"
                     href="#"
                     role="button"
-                    data-toggle="dropdown">
+                    data-toggle="dropdown"
+                  >
                     <img
                       src="images/profile/education/pic1.jpg"
                       width="20"
-                      alt="" />
+                      alt=""
+                    />
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
                     <a href="app-profile.html" class="dropdown-item ai-icon">
@@ -200,9 +218,11 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-user">
+                        class="feather feather-user"
+                      >
                         <path
-                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+                        ></path>
                         <circle cx="12" cy="7" r="4"></circle>
                       </svg>
                       <span class="ml-2">Profile </span>
@@ -219,9 +239,11 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-mail">
+                        class="feather feather-mail"
+                      >
                         <path
-                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        ></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
                       </svg>
                       <span class="ml-2">Inbox </span>
@@ -238,9 +260,11 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-log-out">
+                        class="feather feather-log-out"
+                      >
                         <path
-                          d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                          d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                        ></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
                         <line x1="21" y1="12" x2="9" y2="12"></line>
                       </svg>
@@ -268,7 +292,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-home"></i>
                 <span class="nav-text">Dashboard</span>
               </a>
@@ -282,7 +307,8 @@
               <a
                 class="ai-icon"
                 href="event-management.html"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-calendar"></i>
                 <span class="nav-text">Event Management</span>
               </a>
@@ -291,7 +317,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-user"></i>
                 <span class="nav-text">Professors</span>
               </a>
@@ -306,7 +333,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-users"></i>
                 <span class="nav-text">Students</span>
               </a>
@@ -321,7 +349,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-graduation-cap"></i>
                 <span class="nav-text">Courses</span>
               </a>
@@ -336,7 +365,24 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
+                <i class="la la-graduation-cap"></i>
+                <span class="nav-text">Quizzes</span>
+              </a>
+              <ul aria-expanded="false">
+                <li><a href="all-quizzes.php">All Quizzess</a></li>
+                <li><a href="add-quizzes.php">Add Quizzess</a></li>
+                <li><a href="edit-quizzes.html">Edit Quizzess</a></li>
+                <li><a href="delete-quizzes.php">Delete Quizzess</a></li>
+              </ul>
+            </li>
+            <li>
+              <a
+                class="has-arrow"
+                href="javascript:void()"
+                aria-expanded="false"
+              >
                 <i class="la la-book"></i>
                 <span class="nav-text">Library</span>
               </a>
@@ -350,7 +396,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-building"></i>
                 <span class="nav-text">Departments</span>
               </a>
@@ -364,7 +411,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-users"></i>
                 <span class="nav-text">Staff</span>
               </a>
@@ -379,7 +427,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-gift"></i>
                 <span class="nav-text">Holiday</span>
               </a>
@@ -394,7 +443,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-dollar"></i>
                 <span class="nav-text">Fees</span>
               </a>
@@ -409,7 +459,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-users"></i>
                 <span class="nav-text">Apps</span>
               </a>
@@ -454,7 +505,8 @@
               <a
                 class="has-arrow ai-icon"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-signal"></i>
                 <span class="nav-text">Charts</span>
               </a>
@@ -472,7 +524,8 @@
               <a
                 class="has-arrow ai-icon"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-globe"></i>
                 <span class="nav-text">Bootstrap</span>
               </a>
@@ -500,7 +553,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-plus-square-o"></i>
                 <span class="nav-text">Plugins</span>
               </a>
@@ -524,7 +578,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-file-text"></i>
                 <span class="nav-text">Forms</span>
               </a>
@@ -543,7 +598,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-table"></i>
                 <span class="nav-text">Table</span>
               </a>
@@ -557,7 +613,8 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <i class="la la-th-list"></i>
                 <span class="nav-text">Pages</span>
               </a>
@@ -598,325 +655,75 @@
           <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0">
               <div class="welcome-text">
-                <h4>All Courses</h4>
+                <h4>All Quizzes</h4>
               </div>
             </div>
             <div
-              class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+              class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex"
+            >
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item active">
-                  <a href="javascript:void(0);">Courses</a>
+                  <a href="javascript:void(0);">Quizzes</a>
                 </li>
                 <li class="breadcrumb-item active">
-                  <a href="javascript:void(0);">All Courses</a>
+                  <a href="javascript:void(0);">All Quizzes</a>
                 </li>
               </ol>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic1.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Why is Early Education Essential?</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
+            <div class="col-lg-12">
+              <div class="row tab-content">
+                <div id="list-view" class="tab-pane fade active show col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">All Quizzes List</h4>
+                      <a href="add-quizzes.php" class="btn btn-primary"
+                        >+ Add new</a
                       >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jack Ronan</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic2.jpg" alt="" />
-                <div class="card-body">
-                  <h4>The Shocking Revelation of Education.</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jimmy Morris</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic3.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Five Things Nobody Told You About</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Konne Backfield</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic4.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Learn Python – Interactive Python Tutorial</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Nashid Martines</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic5.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Why is Early Education Essential?</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jack Ronan</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic6.jpg" alt="" />
-                <div class="card-body">
-                  <h4>The Shocking Revelation of Education.</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jimmy Morris</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic7.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Five Things Nobody Told You About</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Konne Backfield</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic8.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Learn Python – Interactive Python Tutorial</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Nashid Martines</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table
+                          id="example3"
+                          class="display"
+                          style="min-width: 845px"
+                        >
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Course</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php for ($i = 0; $i < count($result); $i++) : ?>
+                            <tr>
+                              <td><?php echo $result[$i][0] ?></td>
+                              <td><?php echo $result[$i][1] ?></td>
+                              <td><?php echo $result[$i][2] ?></td>
+                              <td>
+                                <a
+                                  href="edit-quizzes.php?id='<?php echo $result[$i][0] ?>'"
+                                  class="btn btn-sm btn-primary"
+                                  ><i class="la la-pencil"></i
+                                ></a>
+                                <a
+                                  href="./delete-quizzes.php?id=<?php echo $result[$i][0] ?>"
+                                  class="btn btn-sm btn-danger"
+                                  ><i class="la la-trash-o"></i
+                                ></a>
+                              </td>
+                            </tr>
+                            <?php endfor ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -963,9 +770,15 @@
     <script src="js/custom.min.js"></script>
     <script src="js/dlabnav-init.js"></script>
 
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
     <script src="js/styleSwitcher.js"></script>
   </body>
 </html>
+
+<?php $conn->close() ?>
