@@ -1,22 +1,9 @@
-﻿<?php
-include '../Connection/connect.php';
-if(isset($_POST['submit'])){
-    $course_title = $_POST['course_title'];
-    $course_description = $_POST['course_description'];
-    $course_duration = $_POST['course_duration'];
-    $course_creation_date = $_POST['course_creation_date'];
+﻿<?php include_once '../Connection/connect.php';
 
-    $sql ="INSERT INTO `courses` (course_title , course_description , course_duration , course_creation_date ) 
-    VALUES ('$course_title','$course_description' , '$course_duration', '$course_creation_date')";
-    $result = mysqli_query($conn,$sql);
-    if($result){
-        echo "data inserted successfully";
-    }else{
-        die(mysqli_error($conn,$sql));
-    }
-}
-
+$result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
+$courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +13,7 @@ if(isset($_POST['submit'])){
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <title>Edumin - Edit Quizzes </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -218,10 +205,10 @@ if(isset($_POST['submit'])){
                 <span class="nav-text">Courses</span>
               </a>
               <ul aria-expanded="false">
-                <li><a href="all-courses.php">All Courses</a></li>
-                <li><a href="add-courses.php">Add Courses</a></li>
-                <li><a href="edit-courses.php">Edit Courses</a></li>
-                <li><a href="about-courses.php">About Courses</a></li>
+                <li><a href="all-courses.html">All Courses</a></li>
+                <li><a href="add-courses.html">Add Courses</a></li>
+                <li><a href="edit-courses.html">Edit Courses</a></li>
+                <li><a href="about-courses.html">About Courses</a></li>
               </ul>
             </li>
             <li>
@@ -271,7 +258,8 @@ if(isset($_POST['submit'])){
           </ul>
         </div>
       </div>
-        <!--**********************************
+      <!--**********************************
+
             Sidebar end
         ***********************************-->
 
@@ -287,14 +275,14 @@ if(isset($_POST['submit'])){
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Add Course</h4>
+                            <h4>Edit Quiz</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Course</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Quizzes</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Quiz</a></li>
                         </ol>
                     </div>
                 </div>
@@ -303,39 +291,32 @@ if(isset($_POST['submit'])){
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">Courses Details</h4>
+								<h4 class="card-title">Quiz Details</h4>
 							</div>
 							<div class="card-body">
-								<form action="" method="post">
+								<form action="./Quizz/update.php?id=<?php echo $_GET['id']?>" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Course Name</label>
-												<input type="text" class="form-control" name="course_title">
-											</div>
-										</div>
-
-                                        <div class="col-lg-12 col-md-12 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Details</label>
-												<textarea class="form-control" rows="5" name="course_description"></textarea>
-											</div>
-										</div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Duration</label>
-												<input type="text" class="form-control" name="course_duration">
+												<label class="form-label">Quiz Name</label>
+												<input type="text" name="quiz_name" class="form-control" value="<?php echo $result[0][1] ?>">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Course creation date</label>
-												<input type="date" class="form-control" name="course_creation_date">
+												<label class="form-label">Course Name</label>
+												<select name="course_id" id="course_id" class="form-control">
+                                                    <option value=""> </option> 
+                                                    <?php for ($i = 0; $i < count($courseTable); $i++) : ?>
+                                                    <option value="<?php echo $courseTable[$i][0]?>" <?php if($result[0][2] == $courseTable[$i][0]) echo 'selected'; ?>><?php echo $courseTable[$i][1] ?></option>
+
+                                                    <?php endfor ?>
+                                                </select>
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" class="btn btn-primary" name="submit">Submit</button>
-											<a href="index.php" class="btn btn-danger"> cancel</a>
+											<button type="submit" name="editQuiz" class="btn btn-primary">Submit</button>
+											<a href="./ad-quizzes.php" class="btn btn-light">Cencel</a>
 										</div>
 									</div>
 								</form>
@@ -356,7 +337,7 @@ if(isset($_POST['submit'])){
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank"> codersstrike</a> 2023</p>
+                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
             </div>
         </div>
         <!--**********************************
@@ -401,3 +382,5 @@ if(isset($_POST['submit'])){
 	
 </body>
 </html>
+
+<?php $conn->close() ?>

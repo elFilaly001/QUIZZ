@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<?php
+?>
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,8 +12,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
     <link
       rel="stylesheet"
-      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css"
-    />
+      href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/skin.css" />
   </head>
@@ -65,8 +67,7 @@
                 <div class="search_bar dropdown">
                   <span
                     class="search_icon p-3 c-pointer"
-                    data-toggle="dropdown"
-                  >
+                    data-toggle="dropdown">
                     <i class="mdi mdi-magnify"></i>
                   </span>
                   <div class="dropdown-menu p-0 m-0">
@@ -75,8 +76,7 @@
                         class="form-control"
                         type="search"
                         placeholder="Search"
-                        aria-label="Search"
-                      />
+                        aria-label="Search" />
                     </form>
                   </div>
                 </div>
@@ -88,8 +88,7 @@
                     class="nav-link bell ai-icon"
                     href="#"
                     role="button"
-                    data-toggle="dropdown"
-                  >
+                    data-toggle="dropdown">
                     <svg
                       id="icon-user"
                       xmlns="http://www.w3.org/2000/svg"
@@ -101,11 +100,9 @@
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-bell"
-                    >
+                      class="feather feather-bell">
                       <path
-                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"
-                      ></path>
+                        d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                       <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
                     <div class="pulse-css"></div>
@@ -187,13 +184,11 @@
                     class="nav-link"
                     href="#"
                     role="button"
-                    data-toggle="dropdown"
-                  >
+                    data-toggle="dropdown">
                     <img
                       src="images/profile/education/pic1.jpg"
                       width="20"
-                      alt=""
-                    />
+                      alt="" />
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
                     <a href="app-profile.html" class="dropdown-item ai-icon">
@@ -208,11 +203,9 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-user"
-                      >
+                        class="feather feather-user">
                         <path
-                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
-                        ></path>
+                          d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                         <circle cx="12" cy="7" r="4"></circle>
                       </svg>
                       <span class="ml-2">Profile </span>
@@ -229,11 +222,9 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-mail"
-                      >
+                        class="feather feather-mail">
                         <path
-                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                        ></path>
+                          d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                         <polyline points="22,6 12,13 2,6"></polyline>
                       </svg>
                       <span class="ml-2">Inbox </span>
@@ -250,11 +241,9 @@
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        class="feather feather-log-out"
-                      >
+                        class="feather feather-log-out">
                         <path
-                          d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
-                        ></path>
+                          d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                         <polyline points="16 17 21 12 16 7"></polyline>
                         <line x1="21" y1="12" x2="9" y2="12"></line>
                       </svg>
@@ -274,7 +263,7 @@
       <!--**********************************
             Sidebar start
         ***********************************-->
-      <div class="dlabnav">
+        <div class="dlabnav">
         <div class="dlabnav-scroll">
           <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
@@ -294,40 +283,37 @@
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 <i class="la la-graduation-cap"></i>
                 <span class="nav-text">Courses</span>
               </a>
               <ul aria-expanded="false">
-                <li><a href="all-courses.html">All Courses</a></li>
-                <li><a href="add-courses.html">Add Courses</a></li>
-                <li><a href="edit-courses.html">Edit Courses</a></li>
-                <li><a href="about-courses.html">About Courses</a></li>
+                <li><a href="all-courses.php">All Courses</a></li>
+                <li><a href="add-courses.php">Add Courses</a></li>
+                <li><a href="edit-courses.php">Edit Courses</a></li>
+                <li><a href="about-courses.php">About Courses</a></li>
               </ul>
             </li>
             <li>
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 <i class="la la-graduation-cap"></i>
                 <span class="nav-text">Quizzes</span>
               </a>
               <ul aria-expanded="false">
-                <li><a href="all-quizzes.php">All Quizzes</a></li>
+                <li><a href="ad-quizzes.php">All Quizzes</a></li>
                 <li><a href="add-quizzes.php">Add Quizzes</a></li>
                 <li><a href="edit-quizzes.php">Edit Quizzes</a></li>
-                <li><a href="delete-quizzes.php">Delete Quizzes</a></li>
+            
               </ul>
             </li>
             <li>
               <a
                 class="has-arrow"
                 href="javascript:void()"
-                aria-expanded="false"
-              >
+                aria-expanded="false">
                 <i class="la la-th-list"></i>
                 <span class="nav-text">Pages</span>
               </a>
@@ -376,8 +362,7 @@
                       <div class="progress mb-2">
                         <div
                           class="progress-bar progress-animated bg-primary"
-                          style="width: 80%"
-                        ></div>
+                          style="width: 80%"></div>
                       </div>
                       <small>80% Increase in 20 Days</small>
                     </div>
@@ -391,8 +376,7 @@
                       <div class="progress mb-2">
                         <div
                           class="progress-bar progress-animated bg-warning"
-                          style="width: 50%"
-                        ></div>
+                          style="width: 50%"></div>
                       </div>
                       <small>50% Increase in 25 Days</small>
                     </div>
@@ -406,8 +390,7 @@
                       <div class="progress mb-2">
                         <div
                           class="progress-bar progress-animated bg-red"
-                          style="width: 76%"
-                        ></div>
+                          style="width: 76%"></div>
                       </div>
                       <small>76% Increase in 20 Days</small>
                     </div>
@@ -421,8 +404,7 @@
                       <div class="progress mb-2">
                         <div
                           class="progress-bar progress-animated bg-success"
-                          style="width: 30%"
-                        ></div>
+                          style="width: 30%"></div>
                       </div>
                       <small>30% Increase in 30 Days</small>
                     </div>
@@ -451,8 +433,7 @@
                       class="mr-3 rounded-circle"
                       alt="image"
                       width="50"
-                      src="images/profile/education/pic1.jpg"
-                    />
+                      src="images/profile/education/pic1.jpg" />
                     <div class="media-body">
                       <h5 class="mb-0 text-pale-sky">
                         Theodore Handle
@@ -466,8 +447,7 @@
                       class="mr-3 rounded-circle"
                       alt="image"
                       width="50"
-                      src="images/profile/education/pic2.jpg"
-                    />
+                      src="images/profile/education/pic2.jpg" />
                     <div class="media-body">
                       <h5 class="mb-0 text-pale-sky">
                         Bess Willis <small class="text-muted">( M.Com )</small>
@@ -480,8 +460,7 @@
                       class="mr-3 rounded-circle"
                       alt="image"
                       width="50"
-                      src="images/profile/education/pic3.jpg"
-                    />
+                      src="images/profile/education/pic3.jpg" />
                     <div class="media-body">
                       <h5 class="mb-0 text-pale-sky">
                         James Jones <small class="text-muted">( M.Tach )</small>
@@ -494,8 +473,7 @@
                       class="mr-3 rounded-circle"
                       alt="image"
                       width="50"
-                      src="images/profile/education/pic4.jpg"
-                    />
+                      src="images/profile/education/pic4.jpg" />
                     <div class="media-body">
                       <h5 class="mb-0 text-pale-sky">
                         Smith Watson
@@ -509,8 +487,7 @@
                       class="mr-3 rounded-circle"
                       alt="image"
                       width="50"
-                      src="images/profile/education/pic5.jpg"
-                    />
+                      src="images/profile/education/pic5.jpg" />
                     <div class="media-body">
                       <h5 class="mb-0 text-pale-sky">
                         Morese Sharpe
@@ -545,12 +522,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkAll"
-                              />
+                                id="checkAll" />
                               <label
                                 class="custom-control-label"
-                                for="checkAll"
-                              ></label>
+                                for="checkAll"></label>
                             </div>
                           </th>
                           <th scope="col">Student Name</th>
@@ -567,12 +542,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox2"
-                              />
+                                id="checkbox2" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox2"
-                              ></label>
+                                for="checkbox2"></label>
                             </div>
                           </td>
                           <td>Angelica Ramos</td>
@@ -610,12 +583,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox3"
-                              />
+                                id="checkbox3" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox3"
-                              ></label>
+                                for="checkbox3"></label>
                             </div>
                           </td>
                           <td>Bradley Greer</td>
@@ -653,12 +624,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox4"
-                              />
+                                id="checkbox4" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox4"
-                              ></label>
+                                for="checkbox4"></label>
                             </div>
                           </td>
                           <td>Cedric Kelly</td>
@@ -696,12 +665,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox5"
-                              />
+                                id="checkbox5" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox5"
-                              ></label>
+                                for="checkbox5"></label>
                             </div>
                           </td>
                           <td>Caesar Vance</td>
@@ -739,12 +706,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox6"
-                              />
+                                id="checkbox6" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox6"
-                              ></label>
+                                for="checkbox6"></label>
                             </div>
                           </td>
                           <td>Rhona Davidson</td>
@@ -782,12 +747,10 @@
                               <input
                                 type="checkbox"
                                 class="custom-control-input"
-                                id="checkbox7"
-                              />
+                                id="checkbox7" />
                               <label
                                 class="custom-control-label"
-                                for="checkbox7"
-                              ></label>
+                                for="checkbox7"></label>
                             </div>
                           </td>
                           <td>Bradley Greer</td>
@@ -974,8 +937,7 @@
                                   src="images/profile/education/pic1.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Angelica Ramos</td>
                               <td>
@@ -993,8 +955,7 @@
                                   src="images/profile/education/pic2.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Bradley Greer</td>
                               <td>
@@ -1012,8 +973,7 @@
                                   src="images/profile/education/pic3.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Cedric Kelly</td>
                               <td>
@@ -1031,8 +991,7 @@
                                   src="images/profile/education/pic4.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Caesar Vance</td>
                               <td>
@@ -1050,8 +1009,7 @@
                                   src="images/profile/education/pic5.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Rhona Davidson</td>
                               <td>
@@ -1087,8 +1045,7 @@
                                   src="images/profile/education/pic6.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Angelica Ramos</td>
                               <td>
@@ -1106,8 +1063,7 @@
                                   src="images/profile/education/pic7.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Bradley Greer</td>
                               <td>
@@ -1125,8 +1081,7 @@
                                   src="images/profile/education/pic8.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Cedric Kelly</td>
                               <td>
@@ -1144,8 +1099,7 @@
                                   src="images/profile/education/pic10.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Caesar Vance</td>
                               <td>
@@ -1163,8 +1117,7 @@
                                   src="images/profile/education/pic9.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Rhona Davidson</td>
                               <td>
@@ -1200,8 +1153,7 @@
                                   src="images/profile/education/pic5.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Angelica Ramos</td>
                               <td>
@@ -1219,8 +1171,7 @@
                                   src="images/profile/education/pic8.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Bradley Greer</td>
                               <td>
@@ -1238,8 +1189,7 @@
                                   src="images/profile/education/pic6.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Cedric Kelly</td>
                               <td>
@@ -1257,8 +1207,7 @@
                                   src="images/profile/education/pic2.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Caesar Vance</td>
                               <td>
@@ -1276,8 +1225,7 @@
                                   src="images/profile/education/pic7.jpg"
                                   class="rounded-circle"
                                   width="35"
-                                  alt=""
-                                />
+                                  alt="" />
                               </td>
                               <td>Rhona Davidson</td>
                               <td>
@@ -1307,19 +1255,12 @@
       <!--**********************************
             Footer start
         ***********************************-->
-<<<<<<< HEAD
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">codersstrike</a> 2020</p>
-            </div>
-=======
       <div class="footer">
         <div class="copyright">
           <p>
             Copyright © Designed &amp; Developed by
             <a href="../index.htm" target="_blank">DexignLab</a> 2020
           </p>
->>>>>>> c7172f2f91283019dfda821204ae1f4f7496e308
         </div>
       </div>
       <!--**********************************
