@@ -6,24 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Edumin - Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
-<<<<<<< HEAD
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
-	<!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-
-</head>
-
-<body>
-=======
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
     <link
       rel="stylesheet"
       href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
->>>>>>> c7172f2f91283019dfda821204ae1f4f7496e308
 
   <body data-headerbg="color_2" data-theme-version="dark">
     <!--*******************
@@ -357,7 +345,6 @@
       <!--**********************************
             Content body start
         ***********************************-->
-<<<<<<< HEAD
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
@@ -867,16 +854,6 @@
 					</div>
 				</div>
 			   
-=======
-      <div class="content-body">
-        <!-- row -->
-        <div class="container-fluid">
-          <div class="row page-titles mx-0">
-            <div class="col-sm-6 p-md-0">
-              <div class="welcome-text">
-                <h4>All Courses</h4>
-              </div>
->>>>>>> c7172f2f91283019dfda821204ae1f4f7496e308
             </div>
             <div
               class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
