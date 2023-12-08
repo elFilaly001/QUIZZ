@@ -1,9 +1,21 @@
-﻿<!DOCTYPE html>
+﻿<?php
+require_once 'Login_logout/Check.php';
+
+checkUser('all-courses');
+?>
+
+<?php
+require "../Connection/connect.php";
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Edumin - Bootstrap Admin Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
@@ -260,84 +272,7 @@
       <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="dlabnav">
-        <div class="dlabnav-scroll">
-          <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
-            <li>
-              <a href="index.html" aria-expanded="false">
-                <i class="la la-home"></i>
-                <span class="nav-text">Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="all-students.html" aria-expanded="false">
-                <i class="la la-users"></i>
-                <span class="nav-text">Students</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Courses</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="all-courses.php">All Courses</a></li>
-                <li><a href="add-courses.php">Add Courses</a></li>
-                <li><a href="edit-courses.php">Edit Courses</a></li>
-                <li><a href="about-courses.php">About Courses</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Quizzes</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="ad-quizzes.php">All Quizzes</a></li>
-                <li><a href="add-quizzes.php">Add Quizzes</a></li>
-                <li><a href="edit-quizzes.php">Edit Quizzes</a></li>
-            
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-th-list"></i>
-                <span class="nav-text">Pages</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="page-register.html">Register</a></li>
-                <li><a href="page-login.html">Login</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void()"
-                    aria-expanded="false"
-                    >Error</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="page-error-400.html">Error 400</a></li>
-                    <li><a href="page-error-403.html">Error 403</a></li>
-                    <li><a href="page-error-404.html">Error 404</a></li>
-                    <li><a href="page-error-500.html">Error 500</a></li>
-                    <li><a href="page-error-503.html">Error 503</a></li>
-                  </ul>
-                </li>
-                <li><a href="page-lock-screen.html">Lock Screen</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
+        <?php require_once 'sidebar/sidebar.php' ?>
       <!--**********************************
             Sidebar end
         ***********************************-->
@@ -352,24 +287,20 @@
 				<div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>All Student</h4>
+                            <h4>All courses</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Student</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">courses</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All courses</a></li>
                         </ol>
                     </div>
                 </div>
 				
 				<div class="row">
 					<div class="col-lg-12">
-						<ul class="nav nav-pills mb-3">
-							<li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
-							<li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li>
-						</ul>
 					</div>
 					<div class="col-lg-12">
 						<div class="row tab-content">
@@ -381,132 +312,38 @@
 									</div>
 									<div class="card-body">
 										<div class="table-responsive">
-											<table id="example3" class="display" style="min-width: 845px">
-												<thead>
+                    <table class="table table-hover text-center">
+                      <thead class="table-primary">
 													<tr>
 														
-														<th>id</th>
-														<th>course_title</th>
-														<th>course_duration</th>
-														<th>course_creation_date</th>
+                          <th scope="col">course_id</th>
+													<th scope="col">course_title</th>
+													<th scope="col">course_duration</th>
+													<th scope="col">course_creation_date</th>
 														<th>Action</th>
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
-														<td><strong>01</strong></td>
-														<td>Tiger Nixon</td>
-														<td><a href="javascript:void(0);"><strong>123 456 7890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>												
-													</tr>
-													<tr>
-														<td><strong>02</strong></td>
-														<td>Garrett Winters</td>
-														
-														<td><a href="edit-courses.php"><strong>987 654 3210</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>03</strong></td>
-														<td>Ashton Cox</td>
-														
-														<td><a href="edit-courses.php"><strong>(123) 4567 890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-													
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>04</strong></td>
-														<td>Cedric Kelly</td>
-														
-														<td><a href="edit-courses.php"><strong>123 456 7890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-													
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>05</strong></td>
-														<td>Airi Satou</td>
-														
-														<td><a href="edit-courses.php"><strong>987 654 3210</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-													
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>06</strong></td>
-														<td>Brielle Williamson</td>
-														
-														<td><a href="edit-courses.php"><strong>123 456 7890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-													
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>07</strong></td>
-														<td>Herrod Chandler</td>
-														
-														<td><a href="javascript:void(0);"><strong>987 654 3210</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-													
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>08</strong></td>
-														<td>Rhona Davidson</td>
-														
-														<td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
-													<tr>
-														
-														<td><strong>09</strong></td>
-														<td>Colleen Hurst</td>
-
-														<td><a href="javascript:void(0);"><strong>(123) 4567 890</strong></a></td>
-														<td><a href="javascript:void(0);"><strong>info@example.com</strong></a></td>
-														
-														<td>
-															<a href="edit-courses.php" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-															<a href="d" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
-														</td>
-													</tr>
+    <?php
+  
+        $sql = "SELECT * FROM `courses`";
+        $result = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_assoc($result)): ?>
+            
+         <tr>
+      <td><?php echo $row['course_id'] ?></td>
+      <td><?php echo $row['course_title'] ?></td>
+      <td><?php echo $row['course_duration'] ?></td>
+      <td><?php echo $row['course_creation_date'] ?></td>
+      <td>
+        <a href="edit-courses.php?course_id=<?php echo $row['course_id'] ?>" class="link-primary"><i class="fa-solid fa-pen-to-square fs-5 me-3"></i></a>
+        <a href="../Interface/Courses/delete.php?course_id=<?php echo $row['course_id'] ?>" class="link-danger"><i class="fa-solid fa-trash fs-5 "></i></a>
+      </td>
+    </tr>
+  
+     <?php endwhile; ?>
+    
+        
 												</tbody>
 											</table>
 										</div>
@@ -855,326 +692,9 @@
 				</div>
 			   
             </div>
-            <div
-              class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">
-                  <a href="javascript:void(0);">Courses</a>
-                </li>
-                <li class="breadcrumb-item active">
-                  <a href="javascript:void(0);">All Courses</a>
-                </li>
-              </ol>
-            </div>
-          </div>
+            
 
-          <div class="row">
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic1.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Why is Early Education Essential?</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jack Ronan</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic2.jpg" alt="" />
-                <div class="card-body">
-                  <h4>The Shocking Revelation of Education.</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jimmy Morris</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic3.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Five Things Nobody Told You About</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Konne Backfield</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic4.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Learn Python – Interactive Python Tutorial</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Nashid Martines</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic5.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Why is Early Education Essential?</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jack Ronan</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic6.jpg" alt="" />
-                <div class="card-body">
-                  <h4>The Shocking Revelation of Education.</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Jimmy Morris</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic7.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Five Things Nobody Told You About</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Konne Backfield</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-xxl-4 col-lg-4 col-md-6 col-sm-6">
-              <div class="card">
-                <img class="img-fluid" src="images/courses/pic8.jpg" alt="" />
-                <div class="card-body">
-                  <h4>Learn Python – Interactive Python Tutorial</h4>
-                  <ul class="list-group mb-3 list-group-flush">
-                    <li
-                      class="list-group-item px-0 border-top-0 d-flex justify-content-between">
-                      <span class="mb-0 text-muted">April 23</span>
-                      <a href="javascript:void(0);"
-                        ><i class="la la-heart-o mr-1"></i
-                        ><strong>230</strong></a
-                      >
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Duration :</span
-                      ><strong>12 Months</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span class="mb-0">Professor :</span
-                      ><strong>Nashid Martines</strong>
-                    </li>
-                    <li
-                      class="list-group-item px-0 d-flex justify-content-between">
-                      <span
-                        ><i class="fa fa-graduation-cap text-primary mr-2"></i
-                        >Student</span
-                      ><strong>+120</strong>
-                    </li>
-                  </ul>
-                  <a href="about-courses.html" class="btn btn-primary"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
       <!--**********************************
@@ -1215,17 +735,8 @@
     <script src="vendor/global/global.min.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/custom.min.js"></script>
-<<<<<<< HEAD
-    <script src="js/dlabnav-init.js"></script>	
-	
-	<!-- Datatable -->
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="js/plugins-init/datatables.init.js"></script>
-	
-=======
     <script src="js/dlabnav-init.js"></script>
 
->>>>>>> c7172f2f91283019dfda821204ae1f4f7496e308
     <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
