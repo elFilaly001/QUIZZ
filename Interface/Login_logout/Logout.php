@@ -1,5 +1,10 @@
 <?php
 session_start();
-$_SESSION = [];
+
+$_SESSION = array();
+
 session_destroy();
-header("location: ../page-login.html");
+unset($_SESSION);
+
+header('Location: ../index.php');
+

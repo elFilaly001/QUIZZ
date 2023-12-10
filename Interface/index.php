@@ -1,6 +1,5 @@
 ﻿﻿<?php
 require_once 'Login_logout/Check.php';
-
 checkUser('index');
 ?>
 <!DOCTYPE html>
@@ -32,7 +31,6 @@ checkUser('index');
   <!--*******************
         Preloader end
     ********************-->
-
   <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -46,7 +44,6 @@ checkUser('index');
         <img class="logo-compact" src="images/logo-text-white.png" alt="" />
         <img class="brand-title" src="images/logo-text-white.png" alt="" />
       </a>
-
       <div class="nav-control">
         <div class="hamburger">
           <span class="line"></span><span class="line"></span><span class="line"></span>
@@ -171,7 +168,9 @@ checkUser('index');
                     </svg>
                     <span class="ml-2">Inbox </span>
                   </a>
-                  <a href="page-login.html" class="dropdown-item ai-icon">
+
+                  <a href="Login_logout/Logout.php" class="dropdown-item ai-icon">
+
                     <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                       <polyline points="16 17 21 12 16 7"></polyline>
@@ -883,17 +882,13 @@ checkUser('index');
   <script src="vendor/global/global.min.js"></script>
   <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
   <script src="js/custom.min.js"></script>
-
   <!-- Chart Morris plugin files -->
   <script src="vendor/raphael/raphael.min.js"></script>
   <script src="vendor/morris/morris.min.js"></script>
-
   <!-- Chart piety plugin files -->
   <script src="vendor/peity/jquery.peity.min.js"></script>
-
   <!-- Demo scripts -->
   <script src="js/dashboard/dashboard-2.js"></script>
-
   <!-- Svganimation scripts -->
   <script src="vendor/svganimation/vivus.min.js"></script>
   <script src="vendor/svganimation/svg.animation.js"></script>
