@@ -1,26 +1,51 @@
-﻿<?php include_once '../Connection/connect.php';
-session_start();
-$result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
-$courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
-$questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['id']}")->fetch_all();
+﻿<?php
+require_once 'Login_logout/Check.php';
+
+checkUser('all-courses');
 ?>
 
+<?php
+
+require_once "../Connection/connect.php";
+
+if(isset($_POST['submit'])) {
+    $course_title = $_POST['course_title'];
+    $course_description = $_POST['course_description'];
+    $course_duration = $_POST['course_duration'];
+    $course_creation_date = $_POST['course_creation_date'];
+    $course_id = $_GET['course_id'];
+
+    $sql = "UPDATE `courses` SET course_title=?, course_description=?, course_duration=?, course_creation_date=? WHERE course_id=?";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    mysqli_stmt_bind_param($stmt, "ssssi", $course_title, $course_description, $course_duration, $course_creation_date, $course_id);
+
+    $result = mysqli_stmt_execute($stmt);
+    if($result) {
+        header("location: index.php?msg=Record updated successfully");
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
+    mysqli_stmt_close($stmt);
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
-    <meta charset="utf-8">
+	
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Edit Quizzes </title>
+    <title>Edumin - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <!-- Pick date -->
+	
+	<!-- Pick date -->
     <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
     <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
@@ -91,9 +116,9 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                    </svg>
+										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+									</svg>
                                     <div class="pulse-css"></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -156,25 +181,15 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                            <circle cx="12" cy="7" r="4"></circle>
-                                        </svg>
+                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                            <polyline points="22,6 12,13 2,6"></polyline>
-                                        </svg>
+                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
                                     <a href="page-login.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
-                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                                            <polyline points="16 17 21 12 16 7"></polyline>
-                                            <line x1="21" y1="12" x2="9" y2="12"></line>
-                                        </svg>
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                                         <span class="ml-2">Logout </span>
                                     </a>
                                 </div>
@@ -196,110 +211,75 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
             Sidebar end
         ***********************************-->
 
-
-
+		
+		
         <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
-
+				    
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Edit Quiz</h4>
+                            <h4>Add Course</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Quizzes</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Quiz</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Course</a></li>
                         </ol>
                     </div>
                 </div>
+				
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-header">
+								<h4 class="card-title">Courses Details</h4>
+							</div>
+							<div class="card-body">
+								<form action="" method="post">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Name</label>
+												<input type="text" class="form-control" name="course_title">
+											</div>
+										</div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Quiz Details</h4>
-                            </div>
-                            <div class="card-body">
-                                <form action="./Quizz/update.php?id=<?php echo $_GET['id'] ?>" method="post">
-                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Details</label>
+												<textarea class="form-control" rows="5" name="course_description"></textarea>
+											</div>
+										</div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Quiz Name</label>
-                                                <input type="text" name="quiz_name" class="form-control" value="<?php echo $result[0][1] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Course Name</label>
-
-                                                <select name="course_id" id="course_id" class="form-control">
-                                                    <option value=""> </option>
-                                                    <?php for ($i = 0; $i < count($courseTable); $i++) : ?>
-                                                        <option value="<?php echo $courseTable[$i][0] ?>" <?php if ($result[0][2] == $courseTable[$i][0]) echo 'selected'; ?>><?php echo $courseTable[$i][1] ?></option>
-
-                                                    <?php endfor ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <?php
-
-                                        $count = 1;
-                                        $count_check = 1;
-                                        $count_ck = 1;
-                                        ?><?php
-                                            for ($i = 0; $i < count($questionTable); $i++) : ?>
-                                        <div class='questions-container col-lg-12 col-md-6 col-sm-12'>
-                                            <div class='question'>
-                                                <div class='col-lg-12 col-md-6 col-sm-12 p-0'>
-                                                    <div class='form-group'>
-                                                        <label class='form-label'>Question :<?php echo $i + 1 ?></label>
-                                                        <input type='text' name='question_name<?php echo $i + 1 ?>' class='form-control' placeholder='Question' value="<?php echo $questionTable[$i][1] ?>">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <label class='form-label'>Answers : </label>
-                                            <div class='answers col-lg-12 col-md-6 col-sm-12 p-0'>
-                                                <?php
-                                                $answerTable = $conn->query("SELECT * FROM answers where question_id = {$questionTable[$i][0]}");
-                                                while ($row = $answerTable->fetch_assoc()) :
-                                                ?>
-
-
-                                                    <div class='form-check  '>
-                                                        <input class='form-check-input ' type='radio' value='<?php echo $count_check ?>' id='flexRadioDefault' name='checked_answer<?php echo $count_ck ?>' style='width: 17px;height: 28px;' <?php if ($row["answer_is_correct"] == 1) echo 'checked' ?> required>
-                                                        <input type='text' name='answer_value<?php echo $count ?>' class='form-control mb-2 ml-2' placeholder='Answer 1' value="<?php echo $row["answer_content"] ?>" required>
-                                                    </div>
-
-                                                <?php
-                                                    $count++;
-                                                    $count_check++;
-                                                endwhile;
-                                                ?>
-                                            </div>
-                                        </div>
-                                    <?php
-                                                $count_check = 1;
-                                                $count_ck++;
-                                            endfor; ?>
-
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <button type="submit" name="editQuiz" class="btn btn-primary">Submit</button>
-                                        <a href="./ad-quizzes.php" class="btn btn-light">Cencel</a>
-                                    </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+											<div class="form-group">
+												<label class="form-label">Course Duration</label>
+												<input type="text" class="form-control" name="course_duration">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course creation date</label>
+												<input type="date" class="form-control" name="course_creation_date">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<button type="submit" class="btn btn-primary" name="submit">update</button>
+											<a href="index.php" class="btn btn-danger"> cancel</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
             </div>
         </div>
         <!--**********************************
@@ -312,14 +292,14 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank"> codersstrike</a> 2023</p>
             </div>
         </div>
         <!--**********************************
             Footer end
         ***********************************-->
 
-        <!--**********************************
+		<!--**********************************
            Support ticket button start
         ***********************************-->
 
@@ -337,26 +317,23 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="vendor/global/global.min.js"></script>
+	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/custom.min.js"></script>
-    <script src="js/dlabnav-init.js"></script>
+	<script src="js/dlabnav-init.js"></script>
 
-    <!-- Svganimation scripts -->
+	<!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
     <script src="js/styleSwitcher.js"></script>
-
-    <!-- pickdate -->
+	
+	<!-- pickdate -->
     <script src="vendor/pickadate/picker.js"></script>
     <script src="vendor/pickadate/picker.time.js"></script>
     <script src="vendor/pickadate/picker.date.js"></script>
-
-    <!-- Pickdate -->
+	
+	<!-- Pickdate -->
     <script src="js/plugins-init/pickadate-init.js"></script>
-
+	
 </body>
-
 </html>
-
-<?php $conn->close() ?>

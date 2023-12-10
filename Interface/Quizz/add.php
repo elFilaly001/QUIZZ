@@ -44,8 +44,7 @@ if (isset($_POST['addQuizz'])) {
             for ($j = ($i * 4) - 3; $j <= $i * 4; $j++) {
                 $sql = "insert into answers values (null , ? , ? , ? )";
                 $stmt = $conn->prepare($sql);
-
-                if ($j == $checked_answers[$i - 1]) {
+                if ($j - (4 * ($i - 1))  == $checked_answers[$i - 1]) {
                     $iscorrect = 1;
                 } else {
                     $iscorrect = 0;
