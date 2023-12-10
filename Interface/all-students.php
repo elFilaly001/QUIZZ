@@ -13,12 +13,12 @@ if (isset($_GET['user_id'])) {
     $Delete = "DELETE FROM users WHERE user_id = $id";
     $result1 = mysqli_query($conn, $Delete);
 
-    // if ($result1) {
-    //     header("Location: all-students.php?msg=L'utilisateur a été supprimé");
-    //     exit(); 
-    // } else {
-    //     echo "Failed: " . mysqli_error($conn);
-    // }
+     if ($result1) {
+       header("Location: all-students.php?msg=L'utilisateur a été supprimé");
+        exit(); 
+     } else {
+       echo "Failed: " . mysqli_error($conn);
+     }
 }
 ?>
 
