@@ -4,7 +4,7 @@
 <?php require_once '../Connection/connect.php';
 $result = $conn->query(
     '
-    SELECT qp.*, q.quizz_title, c.course_title  FROM quizz_progress qp
+    SELECT qp.*, q.quizz_title, c.course_title, c.course_id  FROM quizz_progress qp
     LEFT JOIN quizz q ON qp.quizz_id = q.quizz_id
     LEFT JOIN course_progress cp ON q.course_id = cp.course_id
     LEFT JOIN courses c ON cp.course_id = c.course_id
@@ -216,6 +216,7 @@ $result = $conn->query(
                                 <th scope="col">Quiz Score</th>
                                 <th scope="col">Correct Answers</th>
                                 <th scope="col">Date</th>
+                                <th>action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -227,6 +228,7 @@ $result = $conn->query(
                                     <td><?php echo $row['quizz_score'] ?></td>
                                     <td><?php echo $row['quizz_correct_answers'] ?></td>
                                     <td><?php echo $row['quizz_date'] ?></td>
+                                    <td><a class="btn btn-primary" href="st_quizz.php?id=<?php echo $row['course_id'] ?>">Start Quizz</a></td>
                                 </tr>
                             <?php endwhile ?>
                         </tbody>
