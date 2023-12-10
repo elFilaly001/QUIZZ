@@ -31,7 +31,6 @@ checkUser('index');
   <!--*******************
         Preloader end
     ********************-->
-
   <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -45,7 +44,6 @@ checkUser('index');
         <img class="logo-compact" src="images/logo-text-white.png" alt="" />
         <img class="brand-title" src="images/logo-text-white.png" alt="" />
       </a>
-
       <div class="nav-control">
         <div class="hamburger">
           <span class="line"></span><span class="line"></span><span class="line"></span>
@@ -884,17 +882,13 @@ checkUser('index');
   <script src="vendor/global/global.min.js"></script>
   <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
   <script src="js/custom.min.js"></script>
-
   <!-- Chart Morris plugin files -->
   <script src="vendor/raphael/raphael.min.js"></script>
   <script src="vendor/morris/morris.min.js"></script>
-
   <!-- Chart piety plugin files -->
   <script src="vendor/peity/jquery.peity.min.js"></script>
-
   <!-- Demo scripts -->
   <script src="js/dashboard/dashboard-2.js"></script>
-
   <!-- Svganimation scripts -->
   <script src="vendor/svganimation/vivus.min.js"></script>
   <script src="vendor/svganimation/svg.animation.js"></script>
