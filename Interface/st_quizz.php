@@ -1,32 +1,27 @@
-﻿<?php require_once 'Login_logout/Check.php';
-checkUser('st_courses')
+<?php require_once 'Login_logout/Check.php';
+checkUser('st_quizz');
 ?>
-<?php require_once '../Connection/connect.php';
-
-$user_id = $_SESSION['user_id'];
-$coursesTable = $conn->query('
-SELECT c.* FROM course_progress cp
-LEFT JOIN courses c ON c.course_id = cp.course_id
-LEFT JOIN users u ON u.user_id = cp.user_id
-WHERE cp.user_id = ' . $user_id)->fetch_all();
-
-$targetCourse = $conn->query("SELECT * FROM courses WHERE course_id = {$_GET['id']}")->fetch_assoc();
-$progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_id = $user_id AND course_id = {$_GET['id']}")->fetch_assoc()['progress_index'];
+<?php session_start();
+require_once '../Connection/connect.php';
+$course_id = $_GET['id'];
+$quizz_id = $conn->query("SELECT q.quizz_id FROM quizz q, courses c WHERE q.course_id = c.course_id")->fetch_assoc()['quizz_id'];
+$questions = $conn->query("SELECT * FROM question WHERE quizz_id = $quizz_id")->fetch_all();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <title>Edumin - Quizz </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -207,109 +202,37 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
         ***********************************-->
         <div class="content-body">
             <!-- row -->
-            <div class="container-fluid">
-
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Course Details</h4>
+            <div class="container-fluid" id="quiz_container">
+                <form action="Quizz_progress/add.php" method="POST">
+                    <input type="hidden" name="quiz_id" value="<?php echo $quizz_id ?>">
+                    <?php for ($i = 0; $i < count($questions); $i++) : ?>
+                        <div class="question_wrapper <?php if ($i) echo 'hideQst' ?>">
+                            <h4><span class="question_nb"><?php echo $i + 1 ?> -></span> <?php echo $questions[$i][1] ?></h4>
+                            <ul>
+                                <?php $result = $conn->query("SELECT * FROM answers WHERE question_id = {$questions[$i][0]}")->fetch_all() ?>
+                                <?php for ($j = 0; $j < 4; $j++) : ?>
+                                    <?php $letters = ['A', 'B', 'C', 'D'] ?>
+                                    <li <?php if (!$j) echo 'class="active"' ?> onclick="checkAnswer(event)">
+                                        <input class="answer_radio" type="radio" name="answer<?php echo $i + 1 ?>" value="<?php echo $j + 1 ?>" <?php if (!$j) echo 'checked' ?>>
+                                        <span><?php echo $letters[$j] ?></span>
+                                        <?php echo $result[$j][1] ?>
+                                        <i class="fa-solid fa-check hidden"></i>
+                                    </li>
+                                <?php endfor ?>
+                            </ul>
+                            <button type="button" class="btn btn-warning mt-4" onclick="nextQst(event)">OK
+                                <i class="fa-solid fa-check"></i>
+                            </button>
                         </div>
+                    <?php endfor ?>
+                    <div class="hideQst">
+                        <h4>You have completed the quiz</h4>
+                        <button type="submit" name="submitQuiz">Done</button>
                     </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Course Details</a></li>
-                        </ol>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xl-3 col-xxl-4 col-lg-4">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <img class="img-fluid" src="images/courses/pic1.jpg" alt="">
-                                    <div class="card-body">
-                                        <h4 class="mb-0"><?php echo $targetCourse['course_title'] ?></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h2 class="card-title">About Course</h2>
-                                    </div>
-                                    <div class="card-body pb-0">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
-                                                <strong>Duration</strong>
-                                                <span class="mb-0"><?php echo $targetCourse['course_duration'] ?></span>
-                                            </li>
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
-                                                <strong>Date</strong>
-                                                <span class="mb-0"><?php echo $targetCourse['course_creation_date'] ?></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-xxl-8 col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="course_content"><?php echo $targetCourse['course_description'] ?></div>
-                                <br>
-                                <h5>Start Quiz Now</h5>
-                                <a class="btn btn-primary" href="st_quizz.php?id=<?php echo $_GET['id'] ?>">Start</a>
-                                <br>
-                                <br>
-                                <h4 class="text-primary">Our Courses</h4>
-                                <div class="profile-skills pt-2 border-bottom-1 pb-2">
-                                    <?php for ($i = 0; $i < count($coursesTable); $i++) : ?>
-                                        <?php if ($coursesTable[$i][0] == $_GET['id']) continue ?>
-                                        <a href="st_course.php?id=<?php echo $coursesTable[$i][0] ?>" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10"><?php echo $coursesTable[$i][1] ?></a>
-                                    <?php endfor ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="progress_btn" class="btn btn-primary position-fixed" onclick="saveProgress()">Save</button>
-                </div>
-
+                </form>
             </div>
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
     <!--**********************************
         Scripts
@@ -326,25 +249,24 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
     <script src="js/styleSwitcher.js"></script>
 
     <script>
-        setTimeout(() => window.scrollTo({
-            top: <?php echo $progress ?>,
-            behavio: 'smooth'
-        }), 2000);
+        function checkAnswer(e) {
+            e.currentTarget.closest('.question_wrapper').querySelectorAll('li').forEach(li => li.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+        }
 
-        function saveProgress() {
-            const data = {
-                'course_id': <?php echo $targetCourse['course_id'] ?>,
-                'progress_index': window['scrollY']
-            }
-            const req = new XMLHttpRequest();
-            req.open(method = 'post', url = 'student/progress.php', true);
-            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            req.send(`course_id=<?php echo $targetCourse['course_id'] ?>&progress_index=${window['scrollY']}`);
+        function nextQst(e) {
+            e.currentTarget.closest('.question_wrapper').classList.add('disappear');
+            e.currentTarget.closest('.question_wrapper').nextElementSibling.classList.remove('hideQst');
         }
     </script>
-
 </body>
 
 </html>
+
+
+<?php
+// if (isset($_POST['submitQuiz'])) {
+// }
+?>
 
 <?php $conn->close() ?>
