@@ -66,12 +66,6 @@ $user_id = $_SESSION['user_id'];
                     </a>
                 </li>
                 <li>
-                    <a href="st_quizzes.php" aria-expanded="false">
-                        <i class="la la-graduation-cap"></i>
-                        <span class="nav-text">Quizzess</span>
-                    </a>
-                </li>
-                <li>
                     <a href="quizz_result.php" aria-expanded="false">
                         <i class="la la-graduation-cap"></i>
                         <span class="nav-text">Quizz Result</span>
