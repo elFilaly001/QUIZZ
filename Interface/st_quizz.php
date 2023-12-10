@@ -1,47 +1,27 @@
-﻿<?php
-require_once 'Login_logout/Check.php';
-
-checkUser('add-student');
+<?php require_once 'Login_logout/Check.php';
+checkUser('st_quizz');
 ?>
-
-<?php
-include "../Connection/connect.php";
-
-if (isset($_POST['submit'])) {
-    $Nom = $_POST['nom'];  
-    $Email = $_POST['Email'];  
-    $Password = $_POST['Password'];  
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-    $sqlADD = "INSERT INTO `users`(`user_name`, `user_email`, `user_password`) VALUES ('$Nom', '$Email',  '$hashedPassword')";
-    $ResultADD = mysqli_query($conn, $sqlADD);
-
-    if ($ResultADD) {
-        header("Location:all-students.php?msg=L'utilisateur a été ajouter avec succès");
-        exit;
-    } else {
-        echo "Failed: " . mysqli_error($conn);
-    }
-}
+<?php session_start();
+require_once '../Connection/connect.php';
+$course_id = $_GET['id'];
+$quizz_id = $conn->query("SELECT q.quizz_id FROM quizz q, courses c WHERE q.course_id = c.course_id")->fetch_assoc()['quizz_id'];
+$questions = $conn->query("SELECT * FROM question WHERE quizz_id = $quizz_id")->fetch_all();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-	
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <title>Edumin - Quizz </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
     <link rel="stylesheet" href="css/style.css">
-	
-	<!-- Pick date -->
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -110,9 +90,9 @@ if (isset($_POST['submit'])) {
                             <li class="nav-item dropdown notification_dropdown">
                                 <a class="nav-link bell ai-icon" href="#" role="button" data-toggle="dropdown">
                                     <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-									</svg>
+                                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                    </svg>
                                     <div class="pulse-css"></div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -175,15 +155,25 @@ if (isset($_POST['submit'])) {
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a href="app-profile.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
                                     <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                        </svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
                                     <a href="page-login.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                            <polyline points="16 17 21 12 16 7"></polyline>
+                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                        </svg>
                                         <span class="ml-2">Logout </span>
                                     </a>
                                 </div>
@@ -200,131 +190,83 @@ if (isset($_POST['submit'])) {
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <?php require_once 'sidebar/sidebar.php'?>
+        <?php require_once 'sidebar/sidebar.php' ?>
         <!--**********************************
             Sidebar end
         ***********************************-->
+
+
+
         <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
             <!-- row -->
-            <div class="container-fluid">
-				
-				<div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Add Student</h4>
+            <div class="container-fluid" id="quiz_container">
+                <form action="Quizz_progress/add.php" method="POST">
+                    <input type="hidden" name="quiz_id" value="<?php echo $quizz_id ?>">
+                    <?php for ($i = 0; $i < count($questions); $i++) : ?>
+                        <div class="question_wrapper <?php if ($i) echo 'hideQst' ?>">
+                            <h4><span class="question_nb"><?php echo $i + 1 ?> -></span> <?php echo $questions[$i][1] ?></h4>
+                            <ul>
+                                <?php $result = $conn->query("SELECT * FROM answers WHERE question_id = {$questions[$i][0]}")->fetch_all() ?>
+                                <?php for ($j = 0; $j < 4; $j++) : ?>
+                                    <?php $letters = ['A', 'B', 'C', 'D'] ?>
+                                    <li <?php if (!$j) echo 'class="active"' ?> onclick="checkAnswer(event)">
+                                        <input class="answer_radio" type="radio" name="answer<?php echo $i + 1 ?>" value="<?php echo $j + 1 ?>" <?php if (!$j) echo 'checked' ?>>
+                                        <span><?php echo $letters[$j] ?></span>
+                                        <?php echo $result[$j][1] ?>
+                                        <i class="fa-solid fa-check hidden"></i>
+                                    </li>
+                                <?php endfor ?>
+                            </ul>
+                            <button type="button" class="btn btn-warning mt-4" onclick="nextQst(event)">OK
+                                <i class="fa-solid fa-check"></i>
+                            </button>
                         </div>
+                    <?php endfor ?>
+                    <div class="hideQst">
+                        <h4>You have completed the quiz</h4>
+                        <button type="submit" name="submitQuiz">Done</button>
                     </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Student</a></li>
-                        </ol>
-                    </div>
-                </div>
-				
-				<div class="row">
-					<div class="col-xl-12 col-xxl-12 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-								<h5 class="card-title">Basic Info</h5>
-							</div>
-							<div class="card-body">
-                                <form action="#" method="post">
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label"> Name</label>
-												<input type="text" class="form-control" name="nom" >
-											</div>
-										</div>
-										
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Email</label>
-												<input type="text" class="form-control" name="Email">
-											</div>
-										</div>
-
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Password</label>
-												<input type="password" class="form-control" name="Password">
-                                            
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" name="submit" class="btn btn-primary">Submit</button>
-											
-										</div>
-									</div>
-								</form>
-                            </div>
-                        </div>
-                    </div>
-				</div>
-                
+                </form>
             </div>
         </div>
-        <!--**********************************
-            Content body end
-        ***********************************-->
-
-
-        <!--**********************************
-            Footer start
-        ***********************************-->
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
-            </div>
-        </div>
-        <!--**********************************
-            Footer end
-        ***********************************-->
-
-		<!--**********************************
-           Support ticket button start
-        ***********************************-->
-
-        <!--**********************************
-           Support ticket button end
-        ***********************************-->
-
-
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
 
     <!--**********************************
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-<script src="vendor/global/global.min.js"></script>
-	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/custom.min.js"></script>
-	<script src="js/dlabnav-init.js"></script>
+    <script src="js/dlabnav-init.js"></script>
 
-	<!-- Svganimation scripts -->
+    <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
     <script src="js/styleSwitcher.js"></script>
-	
-	<!-- pickdate -->
-    <script src="vendor/pickadate/picker.js"></script>
-    <script src="vendor/pickadate/picker.time.js"></script>
-    <script src="vendor/pickadate/picker.date.js"></script>
-	
-	<!-- Pickdate -->
-    <script src="js/plugins-init/pickadate-init.js"></script>
-	
-</body>
-</html>
-<?php
-$conn->close()
 
+    <script>
+        function checkAnswer(e) {
+            e.currentTarget.closest('.question_wrapper').querySelectorAll('li').forEach(li => li.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+        }
+
+        function nextQst(e) {
+            e.currentTarget.closest('.question_wrapper').classList.add('disappear');
+            e.currentTarget.closest('.question_wrapper').nextElementSibling.classList.remove('hideQst');
+        }
+    </script>
+</body>
+
+</html>
+
+
+<?php
+// if (isset($_POST['submitQuiz'])) {
+// }
 ?>
+
+<?php $conn->close() ?>

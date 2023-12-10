@@ -261,6 +261,10 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
                             <div class="card-body">
                                 <div id="course_content"><?php echo $targetCourse['course_description'] ?></div>
                                 <br>
+                                <h5>Start Quiz Now</h5>
+                                <a class="btn btn-primary" href="st_quizz.php?id=<?php echo $_GET['id'] ?>">Start</a>
+                                <br>
+                                <br>
                                 <h4 class="text-primary">Our Courses</h4>
                                 <div class="profile-skills pt-2 border-bottom-1 pb-2">
                                     <?php for ($i = 0; $i < count($coursesTable); $i++) : ?>
