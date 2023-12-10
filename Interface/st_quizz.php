@@ -1,7 +1,7 @@
 <?php require_once 'Login_logout/Check.php';
 checkUser('st_quizz');
 ?>
-<?php session_start();
+<?php
 require_once '../Connection/connect.php';
 $course_id = $_GET['id'];
 $quizz_id = $conn->query("SELECT q.quizz_id FROM quizz q, courses c WHERE q.course_id = c.course_id")->fetch_assoc()['quizz_id'];
