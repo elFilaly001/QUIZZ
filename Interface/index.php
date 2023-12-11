@@ -552,7 +552,7 @@ checkUser('index');
                             while ($row = $result->fetch_assoc()) {
                               echo "<tr>
                 <td>
-                    <img src='images/profile/education/pic5.jpg' class='rounded-circle' width='35' alt='' />
+                    <img src='images/profile/education/pic7.jpg' class='rounded-circle' width='35' alt='' />
                 </td>
                 <td>{$row['user_name']}</td>
                 <td>
@@ -596,7 +596,7 @@ checkUser('index');
                             while ($row = $result->fetch_assoc()) {
                               echo "<tr>
                 <td>
-                    <img src='images/profile/education/pic9.jpg' class='rounded-circle' width='35' alt='' />
+                    <img src='images/profile/education/pic7.jpg' class='rounded-circle' width='35' alt='' />
                 </td>
                 <td>{$row['user_name']}</td>
                 <td>{$row['course_title']}</td>
@@ -631,28 +631,28 @@ checkUser('index');
                         <tbody>
 
                           <?php
-                          $sql = "SELECT u.user_name, q.quizz_title, q.quizz_score, q.quizz_correct_answers, q.quizz_date
-        FROM users u
-        NATURAL JOIN course_progress cp
-        NATURAL JOIN courses c
-        NATURAL JOIN quizz q
-        NATURAL JOIN quizz_progress qp
-        WHERE u.user_role = 0";
+                          $sql = "SELECT u.user_name, q.quizz_title, qp.quizz_score, qp.quizz_correct_answers, qp.quizz_date
+                          FROM users u
+                          NATURAL JOIN course_progress cp
+                          NATURAL JOIN courses c
+                          NATURAL JOIN quizz q
+                          NATURAL JOIN quizz_progress qp
+                          WHERE u.user_role = 0";
 
                           $result = $conn->query($sql);
 
                           if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
                               echo "<tr>
-                <td>
-                    <img src='images/profile/education/pic7.jpg' class='rounded-circle' width='35' alt='' />
-                </td>
-                <td>{$row['user_name']}</td>
-                <td>{$row['quizz_title']}</td>
-                <td>{$row['quizz_score']}</td>
-                <td>{$row['quizz_correct_answers']}</td>
-                <td>{$row['quizz_date']}</td>
-              </tr>";
+                            <td>
+                                <img src='images/profile/education/pic7.jpg' class='rounded-circle' width='35' alt='' />
+                            </td>
+                            <td> {$row['user_name']} </td>
+                            <td> {$row['quizz_title']}</td>
+                            <td> {$row['quizz_score']} </td>
+                            <td> {$row['quizz_correct_answers']} </td>
+                            <td> {$row['quizz_date']} </td>
+                          </tr>";
                             }
                           } else {
                             echo "0 results";
@@ -721,3 +721,7 @@ checkUser('index');
 </body>
 
 </html>
+
+<?php
+$conn->close();
+?>
