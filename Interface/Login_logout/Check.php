@@ -3,7 +3,7 @@ session_start();
 
 function checkUser(string $page_name): void
 {
-    $student_pages = ['st_courses', 'st_course', 'st_quizz'];
+    $student_pages = ['st_courses', 'st_course', 'st_quizz', 'quizz_result'];
     $admin_pages = ['index', 'all-students', 'all-courses', 'all-students', 'add-student', 'edit-student', 'Assignement',  'ad-quizzes', 'add-quizzes'];
 
     if (isset($_SESSION['user_role'])) {

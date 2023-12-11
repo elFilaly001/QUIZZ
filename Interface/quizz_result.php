@@ -1,17 +1,15 @@
-﻿<?php require_once 'Login_logout/Check.php';
-checkUser('st_courses')
+<?php require_once 'Login_logout/Check.php';
+// checkUser('st_courses')
 ?>
 <?php require_once '../Connection/connect.php';
-
-$user_id = $_SESSION['user_id'];
-$coursesTable = $conn->query('
-SELECT c.* FROM course_progress cp
-LEFT JOIN courses c ON c.course_id = cp.course_id
-LEFT JOIN users u ON u.user_id = cp.user_id
-WHERE cp.user_id = ' . $user_id)->fetch_all();
-
-$targetCourse = $conn->query("SELECT * FROM courses WHERE course_id = {$_GET['id']}")->fetch_assoc();
-$progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_id = $user_id AND course_id = {$_GET['id']}")->fetch_assoc()['progress_index'];
+$result = $conn->query(
+    '
+    SELECT qp.*, q.quizz_title, c.course_title, c.course_id  FROM quizz_progress qp
+    LEFT JOIN quizz q ON qp.quizz_id = q.quizz_id
+    LEFT JOIN course_progress cp ON q.course_id = cp.course_id
+    LEFT JOIN courses c ON cp.course_id = c.course_id
+    WHERE cp.user_id = ' . $_SESSION['user_id']
+)
 ?>
 
 <!DOCTYPE html>
@@ -207,77 +205,35 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
         ***********************************-->
         <div class="content-body">
             <!-- row -->
-            <div class="container-fluid">
-
-                <div class="row page-titles mx-0">
-                    <div class="col-sm-6 p-md-0">
-                        <div class="welcome-text">
-                            <h4>Course Details</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Course Details</a></li>
-                        </ol>
-                    </div>
+            <div id="my-posts" class="tab-pane fade active show">
+                <div class="table-responsive">
+                    <table class="table table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Quiz Name</th>
+                                <th scope="col">Course Name</th>
+                                <th scope="col">Quiz Score</th>
+                                <th scope="col">Correct Answers</th>
+                                <th scope="col">Date</th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()) : ?>
+                                <tr>
+                                    <td><?php echo $row['quizz_progress'] ?></td>
+                                    <td><?php echo $row['quizz_title'] ?></td>
+                                    <td><?php echo $row['course_title'] ?></td>
+                                    <td><?php echo $row['quizz_score'] ?></td>
+                                    <td><?php echo $row['quizz_correct_answers'] ?></td>
+                                    <td><?php echo $row['quizz_date'] ?></td>
+                                    <td><a class="btn btn-primary" href="st_quizz.php?id=<?php echo $row['course_id'] ?>">Start Quizz</a></td>
+                                </tr>
+                            <?php endwhile ?>
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="row">
-                    <div class="col-xl-3 col-xxl-4 col-lg-4">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <img class="img-fluid" src="images/courses/pic1.jpg" alt="">
-                                    <div class="card-body">
-                                        <h4 class="mb-0"><?php echo $targetCourse['course_title'] ?></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h2 class="card-title">About Course</h2>
-                                    </div>
-                                    <div class="card-body pb-0">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
-                                                <strong>Duration</strong>
-                                                <span class="mb-0"><?php echo $targetCourse['course_duration'] ?></span>
-                                            </li>
-                                            <li class="list-group-item d-flex px-0 justify-content-between">
-                                                <strong>Date</strong>
-                                                <span class="mb-0"><?php echo $targetCourse['course_creation_date'] ?></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-9 col-xxl-8 col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div id="course_content"><?php echo $targetCourse['course_description'] ?></div>
-                                <br>
-                                <h5>Start Quiz Now</h5>
-                                <a class="btn btn-primary" href="st_quizz.php?id=<?php echo $_GET['id'] ?>">Start</a>
-                                <br>
-                                <br>
-                                <h4 class="text-primary">Our Courses</h4>
-                                <div class="profile-skills pt-2 border-bottom-1 pb-2">
-                                    <?php for ($i = 0; $i < count($coursesTable); $i++) : ?>
-                                        <?php if ($coursesTable[$i][0] == $_GET['id']) continue ?>
-                                        <a href="st_course.php?id=<?php echo $coursesTable[$i][0] ?>" class="btn btn-outline-dark btn-rounded px-4 my-3 my-sm-0 mr-3 m-b-10"><?php echo $coursesTable[$i][1] ?></a>
-                                    <?php endfor ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="progress_btn" class="btn btn-primary position-fixed" onclick="saveProgress()">Save</button>
-                </div>
-
             </div>
         </div>
         <!--**********************************
@@ -324,27 +280,6 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
     <script src="js/styleSwitcher.js"></script>
-
-    <script>
-        setTimeout(() => window.scrollTo({
-            top: <?php echo $progress ?>,
-            behavio: 'smooth'
-        }), 2000);
-
-        function saveProgress() {
-            const data = {
-                'course_id': <?php echo $targetCourse['course_id'] ?>,
-                'progress_index': window['scrollY']
-            }
-            const req = new XMLHttpRequest();
-            req.open(method = 'post', url = 'student/progress.php', true);
-            req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            req.send(`course_id=<?php echo $targetCourse['course_id'] ?>&progress_index=${window['scrollY']}`);
-        }
-    </script>
-
 </body>
 
 </html>
-
-<?php $conn->close() ?>
