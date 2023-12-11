@@ -1,5 +1,5 @@
 <?php require_once 'Login_logout/Check.php';
-// checkUser('st_courses')
+checkUser('quizz_result');
 ?>
 <?php require_once '../Connection/connect.php';
 $result = $conn->query(
