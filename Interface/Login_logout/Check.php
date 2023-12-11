@@ -1,17 +1,14 @@
 <?php
+session_start();
 
-require_once "../../Connection/connect.php";
-session_start(); 
-if(isset($_SESSION['user_role'])){
-    $user_role = $_SESSION['user_role'];
-    if ($user_role) {
-         header ('Location: ../index.php');
-    }else{
-         header ('Location: ../add-courses.html');
-    }
-}
-else{
-     header ('Location: ../page-login.html');
-}
+function checkUser(string $page_name): void
+{
+    $student_pages = ['st_courses', 'st_course', 'st_quizz', 'quizz_result'];
+    $admin_pages = ['index', 'all-students', 'all-courses', 'all-students', 'add-student', 'edit-student', 'Assignement',  'ad-quizzes', 'add-quizzes'];
 
-?>
+    if (isset($_SESSION['user_role'])) {
+        $user_role = $_SESSION['user_role'];
+        if (!$user_role && !in_array($page_name, $student_pages)) header('Location:st_courses.php');
+        else if ($user_role && !in_array($page_name, $admin_pages)) header('Location:index.php');
+    } else header('Location:page-login.html');
+}

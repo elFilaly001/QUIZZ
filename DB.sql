@@ -1,5 +1,6 @@
 Create database quizz ; 
 
+
 CREATE TABLE `answers` (
   `answer_id` int(11) NOT NULL,
   `answer_content` varchar(255) DEFAULT NULL,

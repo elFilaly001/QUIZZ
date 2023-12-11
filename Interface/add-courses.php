@@ -1,9 +1,22 @@
-﻿<?php include_once '../Connection/connect.php';
+﻿<?php
+include '../Connection/connect.php';
+if(isset($_POST['submit'])){
+    $course_title = $_POST['course_title'];
+    $course_description = $_POST['course_description'];
+    $course_duration = $_POST['course_duration'];
+    $course_creation_date = $_POST['course_creation_date'];
 
-$result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
-$courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
+    $sql ="INSERT INTO `courses` (course_title , course_description , course_duration , course_creation_date ) 
+    VALUES ('$course_title','$course_description' , '$course_duration', '$course_creation_date')";
+    $result = mysqli_query($conn,$sql);
+    if($result){
+        echo "data inserted successfully";
+    }else{
+        die(mysqli_error($conn,$sql));
+    }
+}
+
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +26,7 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Delete Quizzes </title>
+    <title>Edumin - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
@@ -180,85 +193,8 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="dlabnav">
-        <div class="dlabnav-scroll">
-          <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
-            <li>
-              <a href="index.html" aria-expanded="false">
-                <i class="la la-home"></i>
-                <span class="nav-text">Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="all-students.html" aria-expanded="false">
-                <i class="la la-users"></i>
-                <span class="nav-text">Students</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Courses</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="all-courses.html">All Courses</a></li>
-                <li><a href="add-courses.html">Add Courses</a></li>
-                <li><a href="edit-courses.html">Edit Courses</a></li>
-                <li><a href="about-courses.html">About Courses</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Quizzes</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="ad-quizzes.php">All Quizzes</a></li>
-                <li><a href="add-quizzes.php">Add Quizzes</a></li>
-                <li><a href="edit-quizzes.php">Edit Quizzes</a></li>
-            
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-th-list"></i>
-                <span class="nav-text">Pages</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="page-register.html">Register</a></li>
-                <li><a href="page-login.html">Login</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void()"
-                    aria-expanded="false"
-                    >Error</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="page-error-400.html">Error 400</a></li>
-                    <li><a href="page-error-403.html">Error 403</a></li>
-                    <li><a href="page-error-404.html">Error 404</a></li>
-                    <li><a href="page-error-500.html">Error 500</a></li>
-                    <li><a href="page-error-503.html">Error 503</a></li>
-                  </ul>
-                </li>
-                <li><a href="page-lock-screen.html">Lock Screen</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!--**********************************
+        <?php require_once 'sidebar/sidebar.php' ?>
+        <!--**********************************
             Sidebar end
         ***********************************-->
 
@@ -274,14 +210,14 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Delete Quiz</h4>
+                            <h4>Add Course</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Quizzes</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Delete Quiz</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Course</a></li>
                         </ol>
                     </div>
                 </div>
@@ -290,26 +226,39 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header">
-								<h4 class="card-title">Quiz Details</h4>
+								<h4 class="card-title">Courses Details</h4>
 							</div>
 							<div class="card-body">
-								<form action="./Quizz/delete.php?id=<?php echo $_GET['id']?>" method="post">
+								<form action="" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Quiz Name</label>
-                                                <input type="text" value="<?php echo $result[0][1] ?>">
+												<label class="form-label">Course Name</label>
+												<input type="text" class="form-control" name="course_title">
+											</div>
+										</div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Details</label>
+												<textarea class="form-control" rows="5" name="course_description"></textarea>
+											</div>
+										</div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Course Duration</label>
+												<input type="text" class="form-control" name="course_duration">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label">Course Name</label>
-                                                <input type="text" value="">
+												<label class="form-label">Course creation date</label>
+												<input type="date" class="form-control" name="course_creation_date">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" name="deleteQuiz" class="btn btn-primary">Delete</button>
-											<a href="./all-quizzes.php" class="btn btn-light">Cancel</a>
+											<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+											<a href="index.php" class="btn btn-danger"> cancel</a>
 										</div>
 									</div>
 								</form>
@@ -330,7 +279,7 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         ***********************************-->
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignLab</a> 2020</p>
+                <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank"> codersstrike</a> 2023</p>
             </div>
         </div>
         <!--**********************************
@@ -375,5 +324,3 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
 	
 </body>
 </html>
-
-<?php $conn->close() ?>

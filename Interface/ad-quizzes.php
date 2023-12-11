@@ -1,7 +1,7 @@
-﻿<?php require_once '../Connection/connect.php';
+<?php include_once '../Connection/connect.php';
 require_once 'Login_logout/Check.php';
-checkUser('add-quizzes');
-$courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
+checkUser('ad-quizzes');
+$result = $conn->query("SELECT q.quizz_id , q.quizz_title , c.course_title FROM quizz q left join courses c on c.course_id=q.course_id")->fetch_all();
 ?>
 
 <!DOCTYPE html>
@@ -11,15 +11,13 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Edumin - Bootstrap Admin Dashboard</title>
+  <title>Edumin - Quizzes</title>
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png" />
   <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" />
+  <!-- Datatable -->
+  <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-
-  <!-- Pick date -->
-  <link rel="stylesheet" href="vendor/pickadate/themes/default.css" />
-  <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css" />
 </head>
 
 <body>
@@ -27,13 +25,11 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         Preloader start
     ********************-->
   <div id="preloader">
-
     <div class="sk-three-bounce">
       <div class="sk-child sk-bounce1"></div>
       <div class="sk-child sk-bounce2"></div>
       <div class="sk-child sk-bounce3"></div>
     </div>
-  </div>
   </div>
   <!--*******************
         Preloader end
@@ -210,105 +206,66 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
     <div class="content-body">
       <!-- row -->
       <div class="container-fluid">
-
         <div class="row page-titles mx-0">
           <div class="col-sm-6 p-md-0">
             <div class="welcome-text">
-              <h4>Add Quiz</h4>
+              <h4>All Quizzes</h4>
             </div>
           </div>
           <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active"><a href="javascript:void(0);">Quizzes</a></li>
-              <li class="breadcrumb-item active"><a href="javascript:void(0);">Edit Quiz</a></li>
+              <li class="breadcrumb-item active">
+                <a href="javascript:void(0);">Quizzes</a>
+              </li>
+              <li class="breadcrumb-item active">
+                <a href="javascript:void(0);">All Quizzes</a>
+              </li>
             </ol>
           </div>
         </div>
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">Quiz Details</h4>
-              </div>
-              <div class="card-body">
-                <form action="./Quizz/add.php" method="post">
-                  <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label class="form-label">Quiz Name</label>
-                        <input type="text" name="quiz_name" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                      <div class="form-group">
-                        <label class="form-label">Course Name</label>
-                        <select name="course_id" id="course_id" class="form-control">
-                          <option value=""></option>
-                          <?php for ($i = 0; $i < count($courseTable); $i++) : ?>
-                            <option value="<?php echo $courseTable[$i][0] ?>"><?php echo $courseTable[$i][1] ?></option>
-                          <?php endfor ?>
-                        </select>
-                      </div>
-                    </div>
-                    <div id="wrapperQuestion" class="col-lg-12 col-md-6 col-sm-12">
-
-                      <div class="questions-container col-lg-12 col-md-6 col-sm-12">
-                        <div class="question">
-                          <div class="col-lg-12 col-md-6 col-sm-12 p-0">
-                            <div class="form-group">
-                              <label class="form-label">Question : 1</label>
-                              <input type="text" name="question_name1" class="form-control" placeholder="Question">
-                            </div>
-                          </div>
-                        </div>
-
-                        <label class="form-label">Answers : </label>
-
-                        <div class="answers col-lg-12 col-md-6 col-sm-12 p-0">
-
-                          <div class="form-check  ">
-                            <input class="form-check-input " type="radio" id="flexRadioDefault" name="checked_answer1" value="1" style="width: 17px;height: 28px;">
-                            <input type="text" name="answer_value1" class="form-control mb-2 ml-2" placeholder="Answer 1">
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input " type="radio" id="flexRadioDefault" name="checked_answer1" value="2" style="width: 17px;height: 28px;">
-                            <input type="text" name="answer_value2" class="form-control mb-2 ml-2" placeholder="Answer 2">
-                          </div>
-
-
-                          <div class="form-check">
-                            <input class="form-check-input " type="radio" id="flexRadioDefault" name="checked_answer1" value="3" style="width: 17px;height: 28px;">
-                            <input type="text" name="answer_value3" class="form-control mb-2 ml-2" placeholder="Answer 3">
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input " type="radio" id="flexRadioDefault" name="checked_answer1" value="4" style="width: 17px;height: 28px;">
-                            <input type="text" name="answer_value4" class="form-control mb-2 ml-2" placeholder="Answer 4">
-                          </div>
-
-
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="col-lg-12 col-md-6 col-sm-12">
-                      <button type="button" name="addQuestion" class="btn btn-primary mb-2" onclick="addQuest()">+</button>
-                    </div>
-                    <div class="col-lg-12 col-md-6 col-sm-12">
-                      <button type="submit" name="addQuizz" class="btn btn-primary">Submit</button>
-                      <a href="./all-quizzes.php" class="btn btn-light">Cencel</a>
-                    </div>
-
+            <div class="row tab-content">
+              <div id="list-view" class="tab-pane fade active show col-lg-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">All Quizzes List</h4>
+                    <a href="add-quizzes.php" class="btn btn-primary">+ Add new</a>
                   </div>
-                  <input type="hidden" name="inp_question_count" id="inp_question_count" value="1">
-                </form>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example3" class="display" style="min-width: 845px">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php for ($i = 0; $i < count($result); $i++) : ?>
+                            <tr>
+                              <td><?php echo $result[$i][0] ?></td>
+                              <td><?php echo $result[$i][1] ?></td>
+                              <td><?php echo $result[$i][2] ?></td>
+                              <td>
+                                <a href="edit-quizzes.php?id=<?php echo $result[$i][0] ?>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                <a href="./Quizz/delete.php?id=<?php echo $result[$i][0] ?>" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                              </td>
+                            </tr>
+                          <?php endfor ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <!--**********************************
@@ -351,72 +308,14 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
   <script src="js/custom.min.js"></script>
   <script src="js/dlabnav-init.js"></script>
 
+  <!-- Datatable -->
+  <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+  <script src="js/plugins-init/datatables.init.js"></script>
+
   <!-- Svganimation scripts -->
   <script src="vendor/svganimation/vivus.min.js"></script>
   <script src="vendor/svganimation/svg.animation.js"></script>
   <script src="js/styleSwitcher.js"></script>
-
-  <!-- pickdate -->
-  <script src="vendor/pickadate/picker.js"></script>
-  <script src="vendor/pickadate/picker.time.js"></script>
-  <script src="vendor/pickadate/picker.date.js"></script>
-
-  <!-- Pickdate -->
-  <script src="js/plugins-init/pickadate-init.js"></script>
-
-
-  <script>
-    let question_count = 1;
-    let answer_count = 5;
-
-    function genhtml() {
-      question_count++;
-      let questwrap = `<div class="questions-container col-lg-12 col-md-6 col-sm-12">
-                      <div class="question">
-                        <div class="col-lg-12 col-md-6 col-sm-12 p-0">
-                          <div class="form-group">
-                            <label class="form-label">Question : ${question_count}</label>
-                            <input type="text" name="question_name${question_count}" class="form-control" placeholder="Question">
-                          </div>
-                        </div>
-                      </div>
-
-                      <label class="form-label">Answers : </label>
-
-                      <div class="answers col-lg-12 col-md-6 col-sm-12 p-0">
-
-                        <div class="form-check  ">
-                          <input class="form-check-input " type="radio" value="1" id="flexRadioDefault" name="checked_answer${question_count}" style="width: 17px;height: 28px;">
-                          <input type="text" name="answer_value${answer_count}" class="form-control mb-2 ml-2" placeholder="Answer 1">
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input " type="radio" value="2" id="flexRadioDefault" name="checked_answer${question_count}" style="width: 17px;height: 28px;">
-                          <input type="text" name="answer_value${answer_count+1}" class="form-control mb-2 ml-2" placeholder="Answer 2">
-                        </div>
-
-
-                        <div class="form-check">
-                          <input class="form-check-input " type="radio" value="3" id="flexRadioDefault" name="checked_answer${question_count}" style="width: 17px;height: 28px;">
-                          <input type="text" name="answer_value${answer_count+2}" class="form-control mb-2 ml-2" placeholder="Answer 3">
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input " type="radio" value="4" id="flexRadioDefault" name="checked_answer${question_count}" style="width: 17px;height: 28px;">
-                          <input type="text" name="answer_value${answer_count+3}" class="form-control mb-2 ml-2" placeholder="Answer 4">
-                        </div>
-
-
-                      </div>
-                    </div>
-`
-      answer_count += 4;
-      return questwrap;
-    }
-
-    function addQuest() {
-      document.getElementById('wrapperQuestion').insertAdjacentHTML("beforeend", genhtml());
-      document.getElementById('inp_question_count').value = question_count;
-    }
-  </script>
 </body>
 
 </html>

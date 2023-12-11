@@ -1,9 +1,26 @@
-﻿<?php include_once '../Connection/connect.php';
+﻿<?php
+require_once 'Login_logout/Check.php';
 
-$result = $conn->query("SELECT * FROM quizz WHERE quizz_id = {$_GET['id']}")->fetch_all();
-$courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetch_all();
+checkUser('all-students');
 ?>
 
+<?php
+include "../Connection/connect.php";
+
+if (isset($_GET['user_id'])) {
+
+    $id = $_GET['user_id'];
+    $Delete = "DELETE FROM users WHERE user_id = $id";
+    $result1 = mysqli_query($conn, $Delete);
+
+    if ($result1) {
+        header("Location: all-students.php?msg=L'utilisateur a été supprimé");
+        exit(); 
+    } else {
+        echo "Failed: " . mysqli_error($conn);
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,15 +30,13 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Edumin - Delete Quizzes </title>
+    <title>Edumin - Bootstrap Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <link rel="stylesheet" href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+	<!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-	
-	<!-- Pick date -->
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.css">
-    <link rel="stylesheet" href="vendor/pickadate/themes/default.date.css">
 
 </head>
 
@@ -180,90 +195,11 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="dlabnav">
-        <div class="dlabnav-scroll">
-          <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
-            <li>
-              <a href="index.html" aria-expanded="false">
-                <i class="la la-home"></i>
-                <span class="nav-text">Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="all-students.html" aria-expanded="false">
-                <i class="la la-users"></i>
-                <span class="nav-text">Students</span>
-              </a>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Courses</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="all-courses.html">All Courses</a></li>
-                <li><a href="add-courses.html">Add Courses</a></li>
-                <li><a href="edit-courses.html">Edit Courses</a></li>
-                <li><a href="about-courses.html">About Courses</a></li>
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-graduation-cap"></i>
-                <span class="nav-text">Quizzes</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="ad-quizzes.php">All Quizzes</a></li>
-                <li><a href="add-quizzes.php">Add Quizzes</a></li>
-                <li><a href="edit-quizzes.php">Edit Quizzes</a></li>
-            
-              </ul>
-            </li>
-            <li>
-              <a
-                class="has-arrow"
-                href="javascript:void()"
-                aria-expanded="false">
-                <i class="la la-th-list"></i>
-                <span class="nav-text">Pages</span>
-              </a>
-              <ul aria-expanded="false">
-                <li><a href="page-register.html">Register</a></li>
-                <li><a href="page-login.html">Login</a></li>
-                <li>
-                  <a
-                    class="has-arrow"
-                    href="javascript:void()"
-                    aria-expanded="false"
-                    >Error</a
-                  >
-                  <ul aria-expanded="false">
-                    <li><a href="page-error-400.html">Error 400</a></li>
-                    <li><a href="page-error-403.html">Error 403</a></li>
-                    <li><a href="page-error-404.html">Error 404</a></li>
-                    <li><a href="page-error-500.html">Error 500</a></li>
-                    <li><a href="page-error-503.html">Error 503</a></li>
-                  </ul>
-                </li>
-                <li><a href="page-lock-screen.html">Lock Screen</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <!--**********************************
+        <?php require_once 'sidebar/sidebar.php'?>
+        <!--**********************************
             Sidebar end
         ***********************************-->
 
-		
-		
         <!--**********************************
             Content body start
         ***********************************-->
@@ -271,60 +207,82 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
             <!-- row -->
             <div class="container-fluid">
 				    
-                <div class="row page-titles mx-0">
+				<div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4>Delete Quiz</h4>
+                            <h4>All Student</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Quizzes</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Delete Quiz</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Student</a></li>
                         </ol>
                     </div>
                 </div>
 				
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="card">
-							<div class="card-header">
-								<h4 class="card-title">Quiz Details</h4>
-							</div>
-							<div class="card-body">
-								<form action="./Quizz/delete.php?id=<?php echo $_GET['id']?>" method="post">
-									<div class="row">
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Quiz Name</label>
-                                                <input type="text" value="<?php echo $result[0][1] ?>">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label">Course Name</label>
-                                                <input type="text" value="">
-											</div>
-										</div>
-										<div class="col-lg-12 col-md-12 col-sm-12">
-											<button type="submit" name="deleteQuiz" class="btn btn-primary">Delete</button>
-											<a href="./all-quizzes.php" class="btn btn-light">Cancel</a>
+						<ul class="nav nav-pills mb-3">
+							<li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
+						</ul>
+					</div>
+					<div class="col-lg-12">
+						<div class="row tab-content">
+							<div id="list-view" class="tab-pane fade active show col-lg-12">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="card-title">All Students List  </h4>
+										<a href="add-student.php" class="btn btn-primary">+ Add new</a>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table id="example3" class="display" style="min-width: 845px">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Name</th>
+														<th>Email</th>
+														<th>Passeword</th>
+														<!-- <th>Role</th> -->
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+												<?php
+												$sql ="SELECT * FROM users";
+                                                $result = $conn->query($sql);
+
+                                                if(!$result){
+		                                            die("Invalid query:". $conn->error);
+	                                            }
+	                                                while($row = $result->fetch_assoc()):
+	                                            
+                                                    ?>
+                                                <tr>  
+			                                        <td><?php echo $row["user_id"] ?></td>
+			                                        <td><?php echo $row["user_name"] ?></td>
+			                                        <td><?php echo $row["user_email"] ?></td>
+                                                    <td><?php echo $row["user_password"] ?></td>
+                                                    <!-- <td><?php echo $row["user_role"] ?></td> -->
+			                                    <td>
+                                                <a href="edit-student.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+												<a href="all-students.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                                </tr>
+                                                <?php
+	                                            endwhile
+                                                    ?>
+												</tbody>
+											</table>
 										</div>
 									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-            </div>
-        </div>
+                                </div>
+                            </div>			
         <!--**********************************
             Content body end
         ***********************************-->
-
-
         <!--**********************************
             Footer start
         ***********************************-->
@@ -344,9 +302,6 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         <!--**********************************
            Support ticket button end
         ***********************************-->
-
-
-    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -355,25 +310,23 @@ $courseTable = $conn->query("SELECT course_id, course_title FROM courses")->fetc
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-<script src="vendor/global/global.min.js"></script>
+    <script src="vendor/global/global.min.js"></script>
 	<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="js/custom.min.js"></script>
-	<script src="js/dlabnav-init.js"></script>
-
-	<!-- Svganimation scripts -->
+    <script src="js/dlabnav-init.js"></script>	
+	
+	<!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+	
+    <!-- Svganimation scripts -->
     <script src="vendor/svganimation/vivus.min.js"></script>
     <script src="vendor/svganimation/svg.animation.js"></script>
     <script src="js/styleSwitcher.js"></script>
 	
-	<!-- pickdate -->
-    <script src="vendor/pickadate/picker.js"></script>
-    <script src="vendor/pickadate/picker.time.js"></script>
-    <script src="vendor/pickadate/picker.date.js"></script>
-	
-	<!-- Pickdate -->
-    <script src="js/plugins-init/pickadate-init.js"></script>
-	
 </body>
 </html>
+<?php
+$conn->close()
 
-<?php $conn->close() ?>
+?>
