@@ -244,7 +244,7 @@ if (isset($_GET['user_id'])) {
 														<th>ID</th>
 														<th>Name</th>
 														<th>Email</th>
-														<th>Passeword</th>
+														<!-- <th>Passeword</th> -->
 														<!-- <th>Role</th> -->
 													</tr>
 												</thead>
@@ -264,7 +264,7 @@ if (isset($_GET['user_id'])) {
 			                                        <td><?php echo $row["user_id"] ?></td>
 			                                        <td><?php echo $row["user_name"] ?></td>
 			                                        <td><?php echo $row["user_email"] ?></td>
-                                                    <td><?php echo $row["user_password"] ?></td>
+                                                    <!-- <td><?php echo $row["user_password"] ?></td> -->
                                                     <!-- <td><?php echo $row["user_role"] ?></td> -->
 			                                    <td>
                                                 <a href="edit-student.php?user_id=<?php echo $row["user_id"]?>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
