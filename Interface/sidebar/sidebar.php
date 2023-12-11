@@ -26,6 +26,12 @@ $user_id = $_SESSION['user_id'];
                     </a>
                 </li>
                 <li>
+                    <a href="Assignement.php" aria-expanded="false">
+                        <i class="la la-graduation-cap"></i>
+                        <span class="nav-text">Course Assignement</span>
+                    </a>
+                </li>
+                <li>
                     <a href="ad-quizzes.php" aria-expanded="false">
                         <i class="la la-graduation-cap"></i>
                         <span class="nav-text">Quizzes</span>
@@ -57,12 +63,6 @@ $user_id = $_SESSION['user_id'];
                     <a href="st_courses.php" aria-expanded="false">
                         <i class="la la-graduation-cap"></i>
                         <span class="nav-text">Courses</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="st_quizzes.php" aria-expanded="false">
-                        <i class="la la-graduation-cap"></i>
-                        <span class="nav-text">Quizzess</span>
                     </a>
                 </li>
                 <li>

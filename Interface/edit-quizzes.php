@@ -169,7 +169,7 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
                                         </svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="Login_logout/Logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                             <polyline points="16 17 21 12 16 7"></polyline>
@@ -227,7 +227,7 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
                                 <h4 class="card-title">Quiz Details</h4>
                             </div>
                             <div class="card-body">
-                                <form action="./Quizz/update.php?id=<?php echo $_GET['id'] ?>" method="post">
+                                <form action="Quizz/update.php?id=<?php echo $_GET['id'] ?>" method="post">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
@@ -294,6 +294,9 @@ $questionTable = $conn->query("SELECT * FROM question where quizz_id = {$_GET['i
                                         <a href="./ad-quizzes.php" class="btn btn-light">Cencel</a>
                                     </div>
                                     </div>
+                                    <input type="hidden" name="inp_question_count" id="inp_question_count" value="<?php
+                                                                                                                    echo count($questionTable);
+                                                                                                                    ?>">
                                 </form>
                             </div>
                         </div>

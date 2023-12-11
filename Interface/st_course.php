@@ -173,7 +173,7 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
                                         </svg>
                                         <span class="ml-2">Inbox </span>
                                     </a>
-                                    <a href="page-login.html" class="dropdown-item ai-icon">
+                                    <a href="Login_logout/Logout.php" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
                                             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                             <polyline points="16 17 21 12 16 7"></polyline>
@@ -260,6 +260,10 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
                         <div class="card">
                             <div class="card-body">
                                 <div id="course_content"><?php echo $targetCourse['course_description'] ?></div>
+                                <br>
+                                <h5>Start Quiz Now</h5>
+                                <a class="btn btn-primary" href="st_quizz.php?id=<?php echo $_GET['id'] ?>">Start</a>
+                                <br>
                                 <br>
                                 <h4 class="text-primary">Our Courses</h4>
                                 <div class="profile-skills pt-2 border-bottom-1 pb-2">
