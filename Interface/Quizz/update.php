@@ -41,8 +41,6 @@ if (isset($_POST['editQuiz'])) {
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("si", $questions[$i], $result[$i][0]);
         $stmt->execute();
-
-
         $sql_answer = "select * from answers where question_id = {$result[$i][0]}";
         $result1 = $conn->query($sql_answer)->fetch_all();
         for ($j = 0; $j < count($result1); $j++) {
