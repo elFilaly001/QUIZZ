@@ -1,5 +1,5 @@
 <?php
-require_once '../Connection/connect.php';
+require_once '../../Connection/connect.php';
 
 $answers = $conn->query(
     "SELECT a.answer_id, a.answer_is_correct FROM answers a
@@ -15,6 +15,6 @@ for ($i = 1; $i <= count($answers) / 4; $i++) {
 
 $conn->query("INSERT INTO quizz_progress VALUES (NULL, $correctAnswers * 10, $correctAnswers, '" . date('Y/m/d') . "', {$_POST['quiz_id']})");
 
-header('location:st_quizz.php');
+header('location:../st_courses.php');
 
 $conn->close();
