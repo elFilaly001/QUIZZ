@@ -328,14 +328,10 @@ $progress = $conn->query("SELECT progress_index FROM course_progress WHERE user_
     <script>
         setTimeout(() => window.scrollTo({
             top: <?php echo $progress ?>,
-            behavio: 'smooth'
-        }), 2000);
+            behavior: 'smooth'
+        }), 500);
 
         function saveProgress() {
-            const data = {
-                'course_id': <?php echo $targetCourse['course_id'] ?>,
-                'progress_index': window['scrollY']
-            }
             const req = new XMLHttpRequest();
             req.open(method = 'post', url = 'student/progress.php', true);
             req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
